@@ -1,5 +1,7 @@
 package vetclinicobj_animals;
 
-public class AnimalCat {
+import vetclinicabstract.Animal;
+
+public class AnimalCat extends Animal {
 
 }

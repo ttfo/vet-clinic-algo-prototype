@@ -1,5 +1,7 @@
 package vetclinicobj_animals;
 
-public class AnimalPython {
+import vetclinicabstract.Animal;
+
+public class AnimalPython extends Animal {
 
 }

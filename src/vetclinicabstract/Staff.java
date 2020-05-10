@@ -1,5 +1,7 @@
 package vetclinicabstract;
 
+public abstract class Staff implements StaffSalaryCalculator, StaffIdAssignment {
+	
 	/*
 	 * SPECS FROM CA DESCRIPTOR
 	 * Each staff member must be given (a) a name, (b) a UNIQUE staff number and (c) a salary level
@@ -12,10 +14,10 @@ package vetclinicabstract;
 	 * Trainee Vet [A]=> Receptionist [B] => Nurse [C] => IT Nerd [D] => Veterinarian [E]
 	 */
 
-// About abstract class implementing interfaces, REF.:
-// https://stackoverflow.com/questions/197893/why-an-abstract-class-implementing-an-interface-can-miss-the-declaration-impleme
-// https://stackoverflow.com/questions/21263607/can-a-normal-class-implement-multiple-interfaces
-public abstract class Staff implements StaffSalaryCalculator, StaffIdAssignment {
+	// About abstract class implementing interfaces, REF.:
+	// https://stackoverflow.com/questions/197893/why-an-abstract-class-implementing-an-interface-can-miss-the-declaration-impleme
+	// https://stackoverflow.com/questions/21263607/can-a-normal-class-implement-multiple-interfaces	
+	
 	// TODO move StaffIdAssignment implementation to FactoryStaff
 	
 	protected String firstName;
