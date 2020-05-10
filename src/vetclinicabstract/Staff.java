@@ -1,6 +1,6 @@
 package vetclinicabstract;
 
-public abstract class Staff implements StaffSalaryCalculator, StaffIdAssignment {
+public abstract class Staff {
 	
 	/*
 	 * SPECS FROM CA DESCRIPTOR
