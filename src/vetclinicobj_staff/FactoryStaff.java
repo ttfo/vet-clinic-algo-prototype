@@ -4,12 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Random;
 
 import vetclinicabstract.Staff;
-import vetclinicabstract.StaffFactoryInterface;
 
-public class FactoryStaff implements StaffFactoryInterface {
+public class FactoryStaff {
 
 	/*
 	 * --SPECS FROM CA DESCRIPTOR--
@@ -27,6 +27,8 @@ public class FactoryStaff implements StaffFactoryInterface {
 	public int medicalStaffCount; // = 30; // min requirement from CA specs
 	public int vetStaffCount; // = 5; // min requirement from CA specs, sub-group of 'medicalStaff'
 	public int staffCount; // = adminStaffCount + medicalStaffCount;
+	public int yearClinicFoundation = 2000;
+	public int currentYear = Calendar.getInstance().get(Calendar.YEAR); // REF. https://stackoverflow.com/questions/136419/get-integer-value-of-the-current-year-in-java
 	
 	ArrayList<Staff> staff = new ArrayList<Staff>();
 	
@@ -48,8 +50,10 @@ public class FactoryStaff implements StaffFactoryInterface {
 			// generating vets
 			for (int i = 0; i < vetStaffCount; i++) {
 				StaffMedicalVet vet = new StaffMedicalVet();
+				vet.setStaffType('M');
+				vet.setQualificationLevel(5);
 				staff.add(vet);
-				System.out.println(vet.toString()); //<= TEST POINT
+				//System.out.println(vet.toString()); //<= TEST POINT
 			}
 			
 			// generating trainees and nurses
@@ -58,10 +62,14 @@ public class FactoryStaff implements StaffFactoryInterface {
 				
 				if (!isTrainee) {
 					StaffMedicalNurse nurse = new StaffMedicalNurse();
+					nurse.setStaffType('M');
+					nurse.setQualificationLevel(3);
 					staff.add(nurse);			
 					
 				} else {
 					StaffMedicalVetTrainee vetTrainee = new StaffMedicalVetTrainee();
+					vetTrainee.setStaffType('M');
+					vetTrainee.setQualificationLevel(1);
 					staff.add(vetTrainee);
 				}	
 				isTrainee = r.nextBoolean(); // REF. https://stackoverflow.com/questions/8878015/return-true-or-false-randomly
@@ -73,10 +81,14 @@ public class FactoryStaff implements StaffFactoryInterface {
 				
 				if (!isReceptionist) {
 					StaffAdminITNerd itNerd = new StaffAdminITNerd();
+					itNerd.setStaffType('A');
+					itNerd.setQualificationLevel(4);
 					staff.add(itNerd);			
 					
 				} else {
 					StaffAdminReceptionist receptionist = new StaffAdminReceptionist();
+					receptionist.setStaffType('A');
+					receptionist.setQualificationLevel(2);
 					staff.add(receptionist);
 				}	
 				isReceptionist = r.nextBoolean(); // REF. https://stackoverflow.com/questions/8878015/return-true-or-false-randomly
@@ -87,10 +99,10 @@ public class FactoryStaff implements StaffFactoryInterface {
 
 	// NOTE: SET text encoding in Eclipse to UTF-8 for the proper experience
 	// REF. https://stackoverflow.com/questions/33991916/eclipe-handling-accents-in-java-file
-	public String[] staffFullNamesRndGen() throws IOException {
+	public void staffFullNamesRndGen() throws IOException {
 		
 		// System.out.println(staffCount); //<= TEST POINT
-		String[] staffFullNames = new String[staffCount];
+		// String[] staffFullNames = new String[staffCount];
 
 		// Reading files with random names and surnames
 		String fileName = "src/NameRandom.txt";
@@ -121,35 +133,44 @@ public class FactoryStaff implements StaffFactoryInterface {
 		// REF. https://stackoverflow.com/questions/5271598/java-generate-random-number-between-two-given-values
 		Random r = new Random();
 		
-		for (int i = 0; i < staffCount; i++) {
+		for (int i = 0; i < staff.size(); i++) {
 			int rndIndex1 = r.nextInt(firstNames.size());
 			int rndIndex2 = r.nextInt(secondNames.size());
-			String staffFullName = firstNames.get(rndIndex1) + " " + secondNames.get(rndIndex2);
-			staffFullNames[i] = staffFullName;
-			System.out.println(i + ") " + staffFullName); //<= TEST POINT
+			// String staffFullName = firstNames.get(rndIndex1) + " " + secondNames.get(rndIndex2);
+			// staffFullNames[i] = staffFullName;
+			Staff staffMember = staff.get(i);
+			staffMember.setFirstName(firstNames.get(rndIndex1));
+			staffMember.setSecondName(secondNames.get(rndIndex2));
+			// System.out.println(i + ") " + staffFullName); //<= TEST POINT
+			// System.out.println((i+1) + ")\n" + staffMember.toString()); //<= TEST POINT
 		}
 		
 		// System.out.println(staffFullNames); //<= TEST POINT
-		return staffFullNames;
+		// return staffFullNames;
 		
 	}
 	
-	@Override
-	public String genId(char staffType, int yearJoined, String secondName) {
-		// TODO Auto-generated method stub
-		return null;
+	// This methods sets all the generic attributes that apply to all employees
+	public void genericStaffDetailsGen() {
+		
+		Random r = new Random();
+		
+		for (int i = 0; i < staff.size(); i++) {
+			
+			Staff staffMember = staff.get(i);
+			
+			// setYearsOfService
+			int yearJoinedRdm = yearClinicFoundation + r.nextInt(currentYear - yearClinicFoundation);
+			staffMember.setYearsOfService(yearJoinedRdm);
+			
+			// setEmployeeId
+			staffMember.setEmployeeId(staffMember.genId(staffMember.getStaffType(), (yearJoinedRdm - 2000), staffMember.getSecondName(), (i+1)));
+			
+			System.out.println((i+1) + ")\n" + staffMember.toString()); //<= TEST POINT
+			
+		}
+		
 	}
 
-	@Override
-	public int genSalaryLevel(int yearsOfService, char qualificationLevel) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int salaryCalculator(int salaryLevel) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 	
 }

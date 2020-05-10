@@ -1,6 +1,10 @@
 package vetclinicabstract;
 
-public abstract class Staff {
+import java.util.Calendar;
+
+import vetclinicabstract.StaffInterface;
+
+public abstract class Staff implements StaffInterface {
 	
 	/*
 	 * SPECS FROM CA DESCRIPTOR
@@ -26,15 +30,10 @@ public abstract class Staff {
 	protected char staffType; // can be 'A' for Admin or 'M' for Medical	
 	protected int salary;
 	protected int yearJoined;
-	protected char qualificationLevel; // Trainee Vet [A] / Receptionist [B] / Nurse [C] / IT Nerd [D] / Veterinarian [E]
+	protected int qualificationLevel; // Trainee Vet [1] / Receptionist [2] / Nurse [3] / IT Nerd [4] / Veterinarian [5]
 	protected String employeeId;
-	
-	// protected abstract int yearsOfService(int yearJoined);
-	
-	public int yearsOfService(int yearJoined) {
-		// TODO 
-		return 0;
-	}
+
+	public int currentYear = Calendar.getInstance().get(Calendar.YEAR); // REF. https://stackoverflow.com/questions/136419/get-integer-value-of-the-current-year-in-java
 	
 	// Implementation of the StaffSalaryCalculator interface method
 	public int genSalaryLevel(int yearsOfService, char qualificationLevel) { 
@@ -49,9 +48,13 @@ public abstract class Staff {
 	}
 
 	// Implementation of the StaffIdAssignment interface method
-	public String genId(char staffType, int yearJoined, String secondName) { 
-		// TODO 
-		return null;
+	public String genId(char staffType, int yearJoined, String secondName, int incr) { 
+		
+		// REF. https://stackoverflow.com/questions/8172420/how-to-convert-a-char-to-a-string
+		// https://stackoverflow.com/questions/11279683/adding-zero-to-a-single-digit-number-is-it-possible
+		
+		String id = String.valueOf(staffType) + String.format("%03d", yearJoined) + String.valueOf(secondName.charAt(0)) + String.format("%03d", incr);
+		return id;
 	}	
 	
 	// SETTERS AND GETTERS
@@ -93,18 +96,18 @@ public abstract class Staff {
 	}
 	
 	public int getYearsOfService() {
-		return yearJoined;
+		return currentYear - yearJoined;
 	}
 	
 	public void setYearsOfService(int yearJoined) {
 		this.yearJoined = yearJoined;
 	}
 	
-	public char getQualificationLevel() {
+	public int getQualificationLevel() {
 		return qualificationLevel;
 	}
 	
-	public void setQualificationLevel(char qualificationLevel) {
+	public void setQualificationLevel(int qualificationLevel) {
 		this.qualificationLevel = qualificationLevel;
 	}
 	
@@ -120,7 +123,16 @@ public abstract class Staff {
 	// TODO
 	@Override
 	public String toString() {
-		return "I, " +firstName+ ", exist";
+		return "{\n"+
+					"\t" + "Employee Id: \"" + employeeId + "\",\n" +
+					"\t" + "Title: \"" + title + "\",\n" +
+					"\t" + "Name: \"" + firstName + "\",\n" +
+					"\t" + "Surname: \"" + secondName + "\",\n" +
+					"\t" + "Staff type (A for Admin, M for Medical): \"" + staffType + "\",\n" +
+					"\t" + "Salary (EUR): \"" + salary + "\",\n" +
+					"\t" + "Year joined: \"" + yearJoined + "\",\n" +
+					"\t" + "Qualification level: \"" + qualificationLevel + "\"\n" +
+				"}\n";
 	}
-
+	
 }

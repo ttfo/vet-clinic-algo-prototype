@@ -11,6 +11,6 @@ public class StaffAdminITNerd extends StaffAdmin {
 	}
 	public void setITOnCall(boolean isITOnCall) {
 		this.isITOnCall = isITOnCall;
-	}	
+	}
 
 }
