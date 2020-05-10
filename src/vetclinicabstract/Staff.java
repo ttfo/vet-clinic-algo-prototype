@@ -16,6 +16,7 @@ package vetclinicabstract;
 // https://stackoverflow.com/questions/197893/why-an-abstract-class-implementing-an-interface-can-miss-the-declaration-impleme
 // https://stackoverflow.com/questions/21263607/can-a-normal-class-implement-multiple-interfaces
 public abstract class Staff implements StaffSalaryCalculator, StaffIdAssignment {
+	// TODO move StaffIdAssignment implementation to FactoryStaff
 	
 	protected String firstName;
 	protected String secondName;
@@ -26,7 +27,12 @@ public abstract class Staff implements StaffSalaryCalculator, StaffIdAssignment 
 	protected char qualificationLevel; // Trainee Vet [A] / Receptionist [B] / Nurse [C] / IT Nerd [D] / Veterinarian [E]
 	protected String employeeId;
 	
-	protected abstract int yearsOfService(int yearJoined);
+	// protected abstract int yearsOfService(int yearJoined);
+	
+	public int yearsOfService(int yearJoined) {
+		// TODO 
+		return 0;
+	}
 	
 	// Implementation of the StaffSalaryCalculator interface method
 	public int genSalaryLevel(int yearsOfService, char qualificationLevel) { 
@@ -100,6 +106,13 @@ public abstract class Staff implements StaffSalaryCalculator, StaffIdAssignment 
 		this.qualificationLevel = qualificationLevel;
 	}
 	
+	public String getEmployeeId() {
+		return employeeId;
+	}
+	
+	public void setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+	}
 	
 	// TO STRING METHOD
 	// TODO
