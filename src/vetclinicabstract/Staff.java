@@ -118,6 +118,9 @@ public abstract class Staff {
 	
 	// TO STRING METHOD
 	// TODO
-	
+	@Override
+	public String toString() {
+		return "I, " +firstName+ ", exist";
+	}
 
 }

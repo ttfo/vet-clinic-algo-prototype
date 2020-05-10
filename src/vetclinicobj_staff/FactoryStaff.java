@@ -22,17 +22,75 @@ public class FactoryStaff implements StaffFactoryInterface {
 	 * Medical staff.
 	 */
 	
-	public int adminStaffCount = 10; // min requirement from CA specs
-	public int medicalStaffCount = 30; // min requirement from CA specs
-	public int vetStaffCount = 5; // min requirement from CA specs, sub-group of 'medicalStaff'
-	public int staffCount = adminStaffCount + medicalStaffCount;
+	// DEFAULT MIN VALUES AS PER ASSIGNMENT
+	public int adminStaffCount; // = 10; // min requirement from CA specs
+	public int medicalStaffCount; // = 30; // min requirement from CA specs
+	public int vetStaffCount; // = 5; // min requirement from CA specs, sub-group of 'medicalStaff'
+	public int staffCount; // = adminStaffCount + medicalStaffCount;
 	
-	String[] staffFullNames = new String[staffCount];
 	ArrayList<Staff> staff = new ArrayList<Staff>();
+	
+	public FactoryStaff(int adminStaffCount, int medicalStaffCount, int vetStaffCount) {
+		
+		if (vetStaffCount > medicalStaffCount) {
+			// TODO throw an exception; vet is a sub-group of medical staff and we cannot have more vets than medical staff
+			return;
+		} else if (vetStaffCount < 5) { 
+			// TODO throw an exception; clinic MUST have at least 5 vets
+			return;		
+		} else {
+			
+			staffCount = adminStaffCount + medicalStaffCount;
+			// System.out.println("total employees: " + staffCount); //<= TEST POINT: total number of employees
+			
+			Random r = new Random();
+			
+			// generating vets
+			for (int i = 0; i < vetStaffCount; i++) {
+				StaffMedicalVet vet = new StaffMedicalVet();
+				staff.add(vet);
+				System.out.println(vet.toString()); //<= TEST POINT
+			}
+			
+			// generating trainees and nurses
+			boolean isTrainee = false;
+			for (int i = 0; i < (medicalStaffCount - vetStaffCount); i++) {
+				
+				if (!isTrainee) {
+					StaffMedicalNurse nurse = new StaffMedicalNurse();
+					staff.add(nurse);			
+					
+				} else {
+					StaffMedicalVetTrainee vetTrainee = new StaffMedicalVetTrainee();
+					staff.add(vetTrainee);
+				}	
+				isTrainee = r.nextBoolean(); // REF. https://stackoverflow.com/questions/8878015/return-true-or-false-randomly
+			}
+	
+			// generating admin staff (it nerds or receptionists)
+			boolean isReceptionist = false;
+			for (int i = 0; i < adminStaffCount; i++) {
+				
+				if (!isReceptionist) {
+					StaffAdminITNerd itNerd = new StaffAdminITNerd();
+					staff.add(itNerd);			
+					
+				} else {
+					StaffAdminReceptionist receptionist = new StaffAdminReceptionist();
+					staff.add(receptionist);
+				}	
+				isReceptionist = r.nextBoolean(); // REF. https://stackoverflow.com/questions/8878015/return-true-or-false-randomly
+			}
+		}		
+	}
+	
 
 	// NOTE: SET text encoding in Eclipse to UTF-8 for the proper experience
 	// REF. https://stackoverflow.com/questions/33991916/eclipe-handling-accents-in-java-file
-	public String[] staffFullNamesRndGen() throws IOException {		
+	public String[] staffFullNamesRndGen() throws IOException {
+		
+		// System.out.println(staffCount); //<= TEST POINT
+		String[] staffFullNames = new String[staffCount];
 
 		// Reading files with random names and surnames
 		String fileName = "src/NameRandom.txt";
@@ -64,11 +122,11 @@ public class FactoryStaff implements StaffFactoryInterface {
 		Random r = new Random();
 		
 		for (int i = 0; i < staffCount; i++) {
-			int rndIndex1 = r.nextInt(staffCount);
-			int rndIndex2 = r.nextInt(staffCount);
+			int rndIndex1 = r.nextInt(firstNames.size());
+			int rndIndex2 = r.nextInt(secondNames.size());
 			String staffFullName = firstNames.get(rndIndex1) + " " + secondNames.get(rndIndex2);
 			staffFullNames[i] = staffFullName;
-			// System.out.println(i + ") " + staffFullName); //<= TEST POINT
+			System.out.println(i + ") " + staffFullName); //<= TEST POINT
 		}
 		
 		// System.out.println(staffFullNames); //<= TEST POINT
