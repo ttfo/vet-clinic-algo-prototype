@@ -17,13 +17,10 @@ public abstract class Staff {
 	protected String firstName;
 	protected String secondName;
 	protected String title;
+	protected char staffType; // can be 'A' for Admin or 'M' for Medical	
 	protected int salary;
 	protected int yearsOfService;
-	protected String qualificationLevel;
-	
-	protected abstract String genId();
-	protected abstract String genSalaryLevel();
-	protected abstract int salaryCalculator();
+	protected char qualificationLevel;
 	
 	// SETTERS AND GETTERS
 	
@@ -51,12 +48,16 @@ public abstract class Staff {
 		this.title = title;
 	}
 	
-	public int getSalary() {
-		return salary;
+	public char getStaffType() {
+		return staffType;
 	}
 	
-	public void setSalary(int salary) {
-		this.salary = salary;
+	public void setStaffType(char staffType) {
+		this.staffType = staffType;
+	}
+	
+	public int getSalary() {
+		return salary;
 	}
 	
 	public int getYearsOfService() {
@@ -67,16 +68,17 @@ public abstract class Staff {
 		this.yearsOfService = yearsOfService;
 	}
 	
-	public String getQualificationLevel() {
+	public char getQualificationLevel() {
 		return qualificationLevel;
 	}
 	
-	public void setQualificationLevel(String qualificationLevel) {
+	public void setQualificationLevel(char qualificationLevel) {
 		this.qualificationLevel = qualificationLevel;
 	}
 	
 	
 	// TO STRING METHOD
+	// @TODO
 	
 
 }
