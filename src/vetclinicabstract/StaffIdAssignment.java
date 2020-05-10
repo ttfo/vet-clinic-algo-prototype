@@ -11,8 +11,11 @@ package vetclinicabstract;
 public interface StaffIdAssignment {
 
 	/**
-	 * a a a
+	 * This method generates a Unique ID for each employee. 
+	 * 
+	 * @param staff type ('A' for Admin or 'M' for Medical), year that the employee joined the company, employee's second name
+	 * @return a unique id for each employee
 	 */	
-	public abstract String genId();
+	public abstract String genId(char staffType, int yearJoined, String secondName);
 	
 }

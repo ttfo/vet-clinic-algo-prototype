@@ -12,15 +12,39 @@ package vetclinicabstract;
 	 * Trainee Vet [A]=> Receptionist [B] => Nurse [C] => IT Nerd [D] => Veterinarian [E]
 	 */
 
-public abstract class Staff {
+// About abstract class implementing interfaces, REF.:
+// https://stackoverflow.com/questions/197893/why-an-abstract-class-implementing-an-interface-can-miss-the-declaration-impleme
+// https://stackoverflow.com/questions/21263607/can-a-normal-class-implement-multiple-interfaces
+public abstract class Staff implements StaffSalaryCalculator, StaffIdAssignment {
 	
 	protected String firstName;
 	protected String secondName;
 	protected String title;
 	protected char staffType; // can be 'A' for Admin or 'M' for Medical	
 	protected int salary;
-	protected int yearsOfService;
-	protected char qualificationLevel;
+	protected int yearJoined;
+	protected char qualificationLevel; // Trainee Vet [A] / Receptionist [B] / Nurse [C] / IT Nerd [D] / Veterinarian [E]
+	protected String employeeId;
+	
+	protected abstract int yearsOfService(int yearJoined);
+	
+	// Implementation of the StaffSalaryCalculator interface method
+	public int genSalaryLevel(int yearsOfService, char qualificationLevel) { 
+		// TODO 
+		return 0;
+	}
+
+	// Implementation of the StaffSalaryCalculator interface method
+	public int salaryCalculator(int salaryLevel) { 
+		// TODO 
+		return 0;
+	}
+
+	// Implementation of the StaffIdAssignment interface method
+	public String genId(char staffType, int yearJoined, String secondName) { 
+		// TODO 
+		return null;
+	}	
 	
 	// SETTERS AND GETTERS
 	
@@ -61,11 +85,11 @@ public abstract class Staff {
 	}
 	
 	public int getYearsOfService() {
-		return yearsOfService;
+		return yearJoined;
 	}
 	
-	public void setYearsOfService(int yearsOfService) {
-		this.yearsOfService = yearsOfService;
+	public void setYearsOfService(int yearJoined) {
+		this.yearJoined = yearJoined;
 	}
 	
 	public char getQualificationLevel() {
@@ -78,7 +102,7 @@ public abstract class Staff {
 	
 	
 	// TO STRING METHOD
-	// @TODO
+	// TODO
 	
 
 }
