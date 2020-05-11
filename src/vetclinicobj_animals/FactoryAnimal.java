@@ -63,13 +63,24 @@ public class FactoryAnimal {
 		
 		inMedConditions.close(); // REF. https://stackoverflow.com/questions/12519335/resource-leak-in-is-never-closed
 			
-		// TODO ensure that we have at least 1 animal for each type
 		for (int i = 0; i < animalCount; i++) {
 			
 			Random r = new Random();
+			
+			// Ensuring that we have at least 1 animal for each type
+			while (i < animalTypesCount) {
+				Animal animal = (Animal)subclassesOfAnimal.get(i).newInstance();
+				animal.setAge(r.nextInt(animal.getMaxAge())+1);
+				animal.setPetName(petNames.get(r.nextInt(petNames.size())));
+				animal.setMedicalCondition(medConditions.get(r.nextInt(medConditions.size())));
+				animals.add(animal);
+				System.out.println(i + "=> " + animal.toString()); //<= TEST POINT
+				i++;
+			}
+
 			int tossCoin = r.nextInt(animalTypesCount);
 			int rndNameIndex = r.nextInt(petNames.size());
-			int rndConditionIndex = r.nextInt(medConditions.size());
+			int rndConditionIndex = r.nextInt(medConditions.size());			
 			
 			Animal animal = (Animal)subclassesOfAnimal.get(tossCoin).newInstance();
 			animal.setAge(r.nextInt(animal.getMaxAge())+1);
