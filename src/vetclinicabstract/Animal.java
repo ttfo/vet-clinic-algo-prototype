@@ -22,6 +22,7 @@ public abstract class Animal {
 	protected String animalType; // e.g. cat, dog, horse, python 
 	protected String petName;
 	protected int age;
+	protected int maxAge; // maximum possible age for that animal
 	protected String medicalCondition;
 	
 	// SETTERS AND GETTERS
@@ -32,17 +33,8 @@ public abstract class Animal {
 	public String getAnimalSize() {
 		return animalSize;
 	}
-	public void setAnimalSize(String animalSize) {
-		this.animalSize = animalSize;
-	}
 	public String getAnimalOrigin() {
 		return animalOrigin;
-	}
-	public void setAnimalOrigin(String animalOrigin) {
-		this.animalOrigin = animalOrigin;
-	}
-	public void setAnimalType(String animalType) {
-		this.animalType = animalType;
 	}
 	public String getPetName() {
 		return petName;
@@ -56,11 +48,27 @@ public abstract class Animal {
 	public void setAge(int age) {
 		this.age = age;
 	}
+	public int getMaxAge() {
+		return maxAge;
+	}	
 	public String getMedicalCondition() {
 		return medicalCondition;
 	}
 	public void setMedicalCondition(String medicalCondition) {
 		this.medicalCondition = medicalCondition;
 	}
+	
+	// TO STRING METHOD
+	@Override
+	public String toString() {
+		return "{\n"+
+					"\t" + "animalSize: \"" + animalSize + "\",\n" +
+					"\t" + "animalOrigin: \"" + animalOrigin + "\",\n" +
+					"\t" + "animalType: \"" + animalType + "\",\n" +
+					"\t" + "petName: \"" + petName + "\",\n" +
+					"\t" + "age: \"" + age + "\",\n" +
+					"\t" + "medicalCondition: \"" + medicalCondition + "\"\n" +
+				"}\n";
+	}	
 
 }

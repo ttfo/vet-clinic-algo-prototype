@@ -304,7 +304,7 @@ public class FactoryStaff {
 				
 			}
 			
-			System.out.println((i+1) + ")\n" + staffMember.toString()); //<= TEST POINT
+			//System.out.println((i+1) + ")\n" + staffMember.toString()); //<= TEST POINT
 		}
 		
 	}	

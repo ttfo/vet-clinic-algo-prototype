@@ -4,6 +4,9 @@ import vetclinicabstract.StaffMedical;
 
 public class StaffMedicalVet extends StaffMedical {
 	
+	// About missing constructor: I wanted to try a different approach for Staff members
+	// All attributes are defined via FactoryStaff class
+	
 	public boolean isVetOnCall; // vet who is on call for emergencies, e.g. over weekends or bank holidays		
 	public boolean isSurgeon; // vet qualified to perform surgery
 	public boolean isLocum; // locum vet- https://thevetservice.com/what-is-locuming/

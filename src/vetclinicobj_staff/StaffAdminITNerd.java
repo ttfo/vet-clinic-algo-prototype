@@ -3,6 +3,10 @@ package vetclinicobj_staff;
 import vetclinicabstract.StaffAdmin;
 
 public class StaffAdminITNerd extends StaffAdmin {
+	
+	// About missing constructor
+	// I wanted to try a different approach for Staff members
+	// All attributes are defined via FactoryStaff class
 
 	public boolean isITOnCall; // IT technician who is on call for emergencies, e.g. system is down over weekends or bank holidays
 

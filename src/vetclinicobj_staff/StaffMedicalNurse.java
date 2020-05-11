@@ -5,8 +5,8 @@ import vetclinicabstract.StaffMedical;
 public class StaffMedicalNurse extends StaffMedical {
 
 	// This class has no additional attributes for now, compared to its parent class
-	// however it's created for consistency and to facilitate future improvements 
 	
-	public StaffMedicalNurse() {};
+	// About missing constructor: I wanted to try a different approach for Staff members
+	// All attributes are defined via FactoryStaff class
 
 }
