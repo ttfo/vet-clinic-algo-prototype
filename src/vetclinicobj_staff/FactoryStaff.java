@@ -25,9 +25,9 @@ public class FactoryStaff {
 	 */
 	
 	// DEFAULT MIN VALUES AS PER ASSIGNMENT
-	public int adminStaffCount; // = 10; // min requirement from CA specs
-	public int medicalStaffCount; // = 30; // min requirement from CA specs
-	public int vetStaffCount; // = 5; // min requirement from CA specs, sub-group of 'medicalStaff'
+	//	public int adminStaffCount; // = 10; // min requirement from CA specs
+	//	public int medicalStaffCount; // = 30; // min requirement from CA specs
+	//	public int vetStaffCount; // = 5; // min requirement from CA specs, sub-group of 'medicalStaff'
 	public int staffCount; // = adminStaffCount + medicalStaffCount;
 	public int yearClinicFoundation = 2000;
 	public int currentYear = Calendar.getInstance().get(Calendar.YEAR); // REF. https://stackoverflow.com/questions/136419/get-integer-value-of-the-current-year-in-java

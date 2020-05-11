@@ -7,10 +7,14 @@ import vetclinicobj_staff.FactoryStaff;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 		
 		// Creates array list of 'staff' objects with variable numbers of admin/ medical and vet staff members
-		FactoryStaff factoryStaff = new FactoryStaff(10, 30, 5);
+		// Values passed as params represent the min requirement as for the specs in CA
+		// However bigger values are also supported, e.g. (40, 60, 10)
+		FactoryStaff factoryStaff = new FactoryStaff(10, 30, 5); 
+		
+		
+		// FactoryAnimal factoryAnimal = new FactoryAnimal(1000); 
 		
 	}
 

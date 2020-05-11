@@ -22,8 +22,6 @@ public abstract class Staff implements StaffInterface {
 	// https://stackoverflow.com/questions/197893/why-an-abstract-class-implementing-an-interface-can-miss-the-declaration-impleme
 	// https://stackoverflow.com/questions/21263607/can-a-normal-class-implement-multiple-interfaces	
 	
-	// TODO move StaffIdAssignment implementation to FactoryStaff
-	
 	protected String firstName;
 	protected String secondName;
 	protected String title;
@@ -38,7 +36,7 @@ public abstract class Staff implements StaffInterface {
 	private int baseSalaryLevel = 49; // Base salary level for all employees
 	private int baseSalary = 25000; // Base salary for all employees
 
-	public int currentYear = Calendar.getInstance().get(Calendar.YEAR); // REF. https://stackoverflow.com/questions/136419/get-integer-value-of-the-current-year-in-java
+	private int currentYear = Calendar.getInstance().get(Calendar.YEAR); // REF. https://stackoverflow.com/questions/136419/get-integer-value-of-the-current-year-in-java
 	
 	// Implementation of the StaffSalaryCalculator interface method
 	public int genSalaryLevel(int yearsOfService, int qualificationLevel) { 
