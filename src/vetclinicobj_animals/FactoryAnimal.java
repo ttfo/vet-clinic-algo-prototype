@@ -20,6 +20,9 @@ public class FactoryAnimal {
 	 */
 	
 	ArrayList<Animal> animals = new ArrayList<Animal>();
+	public ArrayList<Animal> getAnimals() {
+		return animals;
+	}	
 	
 	// Need to get subclasses of Animal and its count
 	
@@ -31,7 +34,7 @@ public class FactoryAnimal {
 	// Create a list of possible subclasses of Animal
 	// REF. https://stackoverflow.com/questions/6665165/random-selection-from-a-heap-of-classes-in-java
 	List<Class<? extends Animal>> subclassesOfAnimal = Arrays.asList(AnimalCat.class, AnimalDog.class, AnimalHorse.class, AnimalPython.class);
-	int animalTypesCount = subclassesOfAnimal.size(); 
+	private int animalTypesCount = subclassesOfAnimal.size(); 
 	
 	public FactoryAnimal(int animalCount) throws IOException, InstantiationException, IllegalAccessException {	
 		
@@ -74,7 +77,7 @@ public class FactoryAnimal {
 				animal.setPetName(petNames.get(r.nextInt(petNames.size())));
 				animal.setMedicalCondition(medConditions.get(r.nextInt(medConditions.size())));
 				animals.add(animal);
-				System.out.println(i + "=> " + animal.toString()); //<= TEST POINT
+				//System.out.println(i + "=> " + animal.toString()); //<= TEST POINT
 				i++;
 			}
 
@@ -93,10 +96,29 @@ public class FactoryAnimal {
 			// Under Window > Preferences, go to the Run/Debug > Console section, 
 			// un-check option "Limit console output.
 			// REF.: https://stackoverflow.com/questions/2828255/how-do-i-increase-the-capacity-of-the-eclipse-output-console
-			System.out.println(i + "=> ( tossCoin: " +tossCoin+ " ): " + animal.toString()); //<= TEST POINT
+			//System.out.println(i + "=> ( tossCoin: " +tossCoin+ " ): " + animal.toString()); //<= TEST POINT
 
 		}
 		
 	}
+	
+	
+	@Override
+	public String toString() {
+		
+		// REF. https://stackoverflow.com/questions/40961590/how-to-use-a-loop-in-a-tostring
+		StringBuilder result = new StringBuilder();
+		
+		result.append("[Total number of animals: " + animals.size() + " animals\n");
+		
+		for (Animal an : animals) {
+			result.append(an.toString() + "\n");
+		}
+			
+		result.append("]\n");
+		
+		return result.toString();
+	}
+	
 	
 }

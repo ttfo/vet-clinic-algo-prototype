@@ -28,12 +28,20 @@ public class FactoryStaff {
 	//	public int adminStaffCount; // = 10; // min requirement from CA specs
 	//	public int medicalStaffCount; // = 30; // min requirement from CA specs
 	//	public int vetStaffCount; // = 5; // min requirement from CA specs, sub-group of 'medicalStaff'
-	public int staffCount; // = adminStaffCount + medicalStaffCount;
-	public int yearClinicFoundation = 2000;
-	public int currentYear = Calendar.getInstance().get(Calendar.YEAR); // REF. https://stackoverflow.com/questions/136419/get-integer-value-of-the-current-year-in-java
-	public int maxYearsAsTraineeOrLocum = 2;	
 	
-	ArrayList<Staff> staff = new ArrayList<Staff>();
+	private int yearClinicFoundation = 2000;
+	private int currentYear = Calendar.getInstance().get(Calendar.YEAR); // REF. https://stackoverflow.com/questions/136419/get-integer-value-of-the-current-year-in-java
+	private int maxYearsAsTraineeOrLocum = 2;	
+
+	public int staffCount; // = adminStaffCount + medicalStaffCount;
+	public ArrayList<Staff> staff = new ArrayList<Staff>();
+	
+	public ArrayList<Staff> getStaff() {
+		return staff;
+	}	
+	public int getstaffCount() {
+		return staffCount;
+	}
 	
 	public FactoryStaff(int adminStaffCount, int medicalStaffCount, int vetStaffCount) throws IOException {
 		
@@ -150,7 +158,7 @@ public class FactoryStaff {
 
 	// NOTE: SET text encoding in Eclipse to UTF-8 for the proper experience
 	// REF. https://stackoverflow.com/questions/33991916/eclipe-handling-accents-in-java-file
-	public void staffFullNamesRndGen() throws IOException {
+	private void staffFullNamesRndGen() throws IOException {
 		
 		// System.out.println(staffCount); //<= TEST POINT
 		// String[] staffFullNames = new String[staffCount];
@@ -200,7 +208,7 @@ public class FactoryStaff {
 	}
 	
 	// This methods sets all the generic attributes that apply to all employees
-	public void genericStaffDetailsGen() {
+	private void genericStaffDetailsGen() {
 		
 		Random r = new Random();
 		
@@ -250,7 +258,7 @@ public class FactoryStaff {
 	}
 	
 	
-	public void adminStaffRndGen() throws IOException {
+	private void adminStaffRndGen() throws IOException {
 
 		// Reading files with random names and surnames
 		String adminTasksFile = "src/AdminTaskRandom.txt";
@@ -307,7 +315,24 @@ public class FactoryStaff {
 			//System.out.println((i+1) + ")\n" + staffMember.toString()); //<= TEST POINT
 		}
 		
-	}	
+	}
+	
+	@Override
+	public String toString() {
+		
+		// REF. https://stackoverflow.com/questions/40961590/how-to-use-a-loop-in-a-tostring
+		StringBuilder result = new StringBuilder();
+		
+		result.append("[Total staff: " + staffCount + " employees\n");
+		
+		for (Staff st : staff) {
+			result.append(st.toString() + "\n");
+		}
+			
+		result.append("]\n");
+		
+		return result.toString();
+	}
 
 	
 }

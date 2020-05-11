@@ -28,7 +28,7 @@ public interface StaffInterface {
 	 * After 10 years the nurse will be at salary level 52
 	 * 
 	 */
-	public int genSalaryLevel(int yearsOfService, int qualificationLevel);
+	public abstract int genSalaryLevel(int yearsOfService, int qualificationLevel);
 	
 	
 	/**
@@ -37,6 +37,6 @@ public interface StaffInterface {
 	 * @param salaryLevel obtained via genSalaryLevel() method
 	 * @return annual salary of the employee in EUR with no decimals (rounded up)
 	 */	
-	public int salaryCalculator(int salaryLevel);	
+	public abstract int salaryCalculator(int salaryLevel);	
 	
 }
