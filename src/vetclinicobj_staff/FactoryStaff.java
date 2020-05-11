@@ -178,7 +178,7 @@ public class FactoryStaff {
 			// setYearsOfService
 			if (staffMember.getQualificationLevel() == 1) { 
 				// trainees can't be in this position for more than a certain amount of years
-				yearJoinedRdm = yearClinicFoundation + r.nextInt(maxYearsAsTrainee);			
+				yearJoinedRdm = currentYear - r.nextInt(maxYearsAsTrainee);			
 			} else {
 				yearJoinedRdm = yearClinicFoundation + r.nextInt(currentYear - yearClinicFoundation);
 			}

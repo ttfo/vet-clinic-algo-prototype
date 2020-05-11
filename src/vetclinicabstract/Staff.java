@@ -43,7 +43,7 @@ public abstract class Staff implements StaffInterface {
 	public int genSalaryLevel(int yearsOfService, int qualificationLevel) { 
 		// Every five years in service employee gains 1 level
 		// Qualification is also factored in
-		int salaryLevel = baseSalaryLevel + (yearsOfService / 5) + (qualificationLevel * 25);
+		int salaryLevel = baseSalaryLevel + (yearsOfService / 5) + (qualificationLevel * 10);
 		return salaryLevel;
 	}
 
