@@ -13,4 +13,21 @@ public class StaffAdminITNerd extends StaffAdmin {
 		this.isITOnCall = isITOnCall;
 	}
 
+	// TO STRING METHOD
+	@Override
+	public String toString() {
+		return "{\n"+
+					"\t" + "Employee Id: \"" + employeeId + "\",\n" +
+					"\t" + "Title: \"" + title + "\",\n" +
+					"\t" + "Name: \"" + firstName + "\",\n" +
+					"\t" + "Surname: \"" + secondName + "\",\n" +
+					"\t" + "Job title: \"" + role + "\",\n" +
+					"\t" + "Staff type (A for Admin, M for Medical): \"" + staffType + "\",\n" +
+					"\t" + "Salary (EUR): \"" + salary + "\",\n" +
+					"\t" + "Year joined: \"" + yearJoined + "\",\n" +
+					"\t" + "Qualification level: \"" + qualificationLevel + "\",\n" +
+					"\t" + "Is IT person on call: \"" + isITOnCall + "\",\n" +
+					"\t" + "Current task: \"" + adminTask + "\"\n" +
+				"}\n";
+	}		
 }

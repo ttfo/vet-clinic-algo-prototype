@@ -1,0 +1,10 @@
+System maintenance
+Hardware inventory
+Software inventory
+Software upgrade
+Server health check-up
+Backup and disaster recovery planning
+Patching
+Fix laptop
+Fix desktop
+Fix network

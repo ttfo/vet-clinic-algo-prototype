@@ -1,0 +1,10 @@
+Administer Payroll
+Issue payslips
+Organize meetings
+Reporting
+Replenish supplies
+Find contractors
+Hire contractors
+Bills payment
+Add patient to system
+Add visit to system

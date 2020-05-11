@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Random;
 
 import vetclinicabstract.Staff;
+import vetclinicabstract.StaffAdmin;
 import vetclinicabstract.StaffMedical;
 
 public class FactoryStaff {
@@ -138,8 +139,11 @@ public class FactoryStaff {
 		// Assigns staff members with random names
 		staffFullNamesRndGen();
 		
-		// Generate all other staff details for each staff member
+		// Generates all other generic staff details for each staff member
 		genericStaffDetailsGen();
+		
+		// Generates remaining attributes for admin staff
+		adminStaffRndGen();
 		
 	}
 	
@@ -239,11 +243,71 @@ public class FactoryStaff {
 				handlesNotExoticPetsOnly = r.nextBoolean();
 			}
 			
-			System.out.println((i+1) + ")\n" + staffMember.toString()); //<= TEST POINT
+			// System.out.println((i+1) + ")\n" + staffMember.toString()); //<= TEST POINT
 			
 		}
 		
 	}
+	
+	
+	public void adminStaffRndGen() throws IOException {
+
+		// Reading files with random names and surnames
+		String adminTasksFile = "src/AdminTaskRandom.txt";
+		String itTasksFile = "src/ITTaskRandom.txt";
+		BufferedReader inAdminTasks = new BufferedReader(new FileReader(adminTasksFile));
+		BufferedReader inITTasks = new BufferedReader(new FileReader(itTasksFile));
+		
+		ArrayList<String> adminTasks = new ArrayList<String>();
+		ArrayList<String> itTasks = new ArrayList<String>();
+		
+		String lineAdminTasks = inAdminTasks.readLine();
+		String lineITTasks = inITTasks.readLine();
+		
+		while (lineAdminTasks != null) {	
+			adminTasks.add(lineAdminTasks); // populating array list of first names from file
+			lineAdminTasks = inAdminTasks.readLine();
+		}
+		
+		inAdminTasks.close(); // REF. https://stackoverflow.com/questions/12519335/resource-leak-in-is-never-closed
+
+		while (lineITTasks != null) {	
+			itTasks.add(lineITTasks); // populating array list of second names from file
+			lineITTasks = inITTasks.readLine();
+		}
+		
+		inITTasks.close(); // REF. https://stackoverflow.com/questions/12519335/resource-leak-in-is-never-closed
+		
+		// REF. https://stackoverflow.com/questions/5271598/java-generate-random-number-between-two-given-values
+		Random r = new Random();
+		boolean itNotOnCall = false;
+		
+		for (int i = 0; i < staff.size(); i++) {
+			
+			Staff staffMember = staff.get(i);
+			if (staffMember instanceof StaffAdminReceptionist) { 
+				
+				int rndIndex = r.nextInt(adminTasks.size());		
+				((StaffAdmin) staffMember).setAdminTask(adminTasks.get(rndIndex));
+
+			} else if (staffMember instanceof StaffAdminITNerd) {
+				
+				int rndIndex = r.nextInt(itTasks.size());
+				((StaffAdmin) staffMember).setAdminTask(itTasks.get(rndIndex));	
+				
+				if (!itNotOnCall) {
+					((StaffAdminITNerd) staffMember).setITOnCall(true);
+					itNotOnCall = true; // we only need 1 IT person to be 'on call'
+				} else {
+					((StaffAdminITNerd) staffMember).setITOnCall(false);
+				}
+				
+			}
+			
+			System.out.println((i+1) + ")\n" + staffMember.toString()); //<= TEST POINT
+		}
+		
+	}	
 
 	
 }
