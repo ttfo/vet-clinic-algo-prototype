@@ -29,10 +29,11 @@ public class FactoryStaff {
 	public int staffCount; // = adminStaffCount + medicalStaffCount;
 	public int yearClinicFoundation = 2000;
 	public int currentYear = Calendar.getInstance().get(Calendar.YEAR); // REF. https://stackoverflow.com/questions/136419/get-integer-value-of-the-current-year-in-java
+	public int maxYearsAsTrainee = 2;	
 	
 	ArrayList<Staff> staff = new ArrayList<Staff>();
 	
-	public FactoryStaff(int adminStaffCount, int medicalStaffCount, int vetStaffCount) {
+	public FactoryStaff(int adminStaffCount, int medicalStaffCount, int vetStaffCount) throws IOException {
 		
 		if (vetStaffCount > medicalStaffCount) {
 			// TODO throw an exception; vet is a sub-group of medical staff and we cannot have more vets than medical staff
@@ -52,6 +53,8 @@ public class FactoryStaff {
 				StaffMedicalVet vet = new StaffMedicalVet();
 				vet.setStaffType('M');
 				vet.setQualificationLevel(5);
+				vet.setRole("Vet Physician");
+				vet.setTitle("Dr."); // REF https://www.thejournal.ie/ireland-doctors-vets-new-animals-2696672-Apr2016/
 				staff.add(vet);
 				//System.out.println(vet.toString()); //<= TEST POINT
 			}
@@ -64,12 +67,14 @@ public class FactoryStaff {
 					StaffMedicalNurse nurse = new StaffMedicalNurse();
 					nurse.setStaffType('M');
 					nurse.setQualificationLevel(3);
+					nurse.setRole("Vet Nurse");
 					staff.add(nurse);			
 					
 				} else {
 					StaffMedicalVetTrainee vetTrainee = new StaffMedicalVetTrainee();
 					vetTrainee.setStaffType('M');
 					vetTrainee.setQualificationLevel(1);
+					vetTrainee.setRole("Vet Trainee");
 					staff.add(vetTrainee);
 				}	
 				isTrainee = r.nextBoolean(); // REF. https://stackoverflow.com/questions/8878015/return-true-or-false-randomly
@@ -83,17 +88,27 @@ public class FactoryStaff {
 					StaffAdminITNerd itNerd = new StaffAdminITNerd();
 					itNerd.setStaffType('A');
 					itNerd.setQualificationLevel(4);
+					itNerd.setRole("IT Technician");
+					itNerd.setTitle("Eng.");
 					staff.add(itNerd);			
 					
 				} else {
 					StaffAdminReceptionist receptionist = new StaffAdminReceptionist();
 					receptionist.setStaffType('A');
 					receptionist.setQualificationLevel(2);
+					receptionist.setRole("Receptionist");
 					staff.add(receptionist);
 				}	
 				isReceptionist = r.nextBoolean(); // REF. https://stackoverflow.com/questions/8878015/return-true-or-false-randomly
 			}
-		}		
+		}
+		
+		// Assigns staff members with random names
+		staffFullNamesRndGen();
+		
+		// Generate all other staff details for each staff member
+		genericStaffDetailsGen();
+		
 	}
 	
 
@@ -158,13 +173,23 @@ public class FactoryStaff {
 		for (int i = 0; i < staff.size(); i++) {
 			
 			Staff staffMember = staff.get(i);
+			int yearJoinedRdm = 0;
 			
 			// setYearsOfService
-			int yearJoinedRdm = yearClinicFoundation + r.nextInt(currentYear - yearClinicFoundation);
+			if (staffMember.getQualificationLevel() == 1) { 
+				// trainees can't be in this position for more than a certain amount of years
+				yearJoinedRdm = yearClinicFoundation + r.nextInt(maxYearsAsTrainee);			
+			} else {
+				yearJoinedRdm = yearClinicFoundation + r.nextInt(currentYear - yearClinicFoundation);
+			}
+			
 			staffMember.setYearsOfService(yearJoinedRdm);
 			
 			// setEmployeeId
 			staffMember.setEmployeeId(staffMember.genId(staffMember.getStaffType(), (yearJoinedRdm - 2000), staffMember.getSecondName(), (i+1)));
+
+			// setSalary
+			staffMember.setSalary(staffMember.salaryCalculator(staffMember.genSalaryLevel(staffMember.getYearsOfService(), staffMember.getQualificationLevel())));
 			
 			System.out.println((i+1) + ")\n" + staffMember.toString()); //<= TEST POINT
 			

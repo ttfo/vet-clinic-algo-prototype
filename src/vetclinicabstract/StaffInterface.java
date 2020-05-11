@@ -27,7 +27,7 @@ public interface StaffInterface {
 	 * After 10 years the nurse will be at salary level 52
 	 * 
 	 */
-	public int genSalaryLevel(int yearsOfService, char qualificationLevel);
+	public int genSalaryLevel(int yearsOfService, int qualificationLevel);
 	
 	
 	/**

@@ -10,11 +10,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		// Creates array list of 'staff' objects with variable numbers of admin/ medical and vet staff members
-		FactoryStaff factoryStaff = new FactoryStaff(10, 30, 5); 
-		
-		// Assigns staff members with random names
-		factoryStaff.staffFullNamesRndGen();
-		factoryStaff.genericStaffDetailsGen();
+		FactoryStaff factoryStaff = new FactoryStaff(10, 30, 5);
 		
 	}
 

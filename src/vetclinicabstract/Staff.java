@@ -27,24 +27,30 @@ public abstract class Staff implements StaffInterface {
 	protected String firstName;
 	protected String secondName;
 	protected String title;
+	protected String role;	
 	protected char staffType; // can be 'A' for Admin or 'M' for Medical	
 	protected int salary;
 	protected int yearJoined;
 	protected int qualificationLevel; // Trainee Vet [1] / Receptionist [2] / Nurse [3] / IT Nerd [4] / Veterinarian [5]
 	protected String employeeId;
+	
+	private int baseSalaryLevel = 49; // Base salary level for all employees
+	private int baseSalary = 25000; // Base salary for all employees
 
 	public int currentYear = Calendar.getInstance().get(Calendar.YEAR); // REF. https://stackoverflow.com/questions/136419/get-integer-value-of-the-current-year-in-java
 	
 	// Implementation of the StaffSalaryCalculator interface method
-	public int genSalaryLevel(int yearsOfService, char qualificationLevel) { 
-		// TODO 
-		return 0;
+	public int genSalaryLevel(int yearsOfService, int qualificationLevel) { 
+		// Every five years in service employee gains 1 level
+		// Qualification is also factored in
+		int salaryLevel = baseSalaryLevel + (yearsOfService / 5) + (qualificationLevel * 25);
+		return salaryLevel;
 	}
 
 	// Implementation of the StaffSalaryCalculator interface method
 	public int salaryCalculator(int salaryLevel) { 
-		// TODO 
-		return 0;
+		int salary = baseSalary + (baseSalary * salaryLevel / 100);
+		return salary;
 	}
 
 	// Implementation of the StaffIdAssignment interface method
@@ -81,8 +87,16 @@ public abstract class Staff implements StaffInterface {
 	
 	public void setTitle(String title) {
 		this.title = title;
-	}
+	}	
 	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public char getStaffType() {
 		return staffType;
 	}
@@ -90,6 +104,10 @@ public abstract class Staff implements StaffInterface {
 	public void setStaffType(char staffType) {
 		this.staffType = staffType;
 	}
+
+	public void setSalary(int salary) {
+		this.salary = salary;
+	}	
 	
 	public int getSalary() {
 		return salary;
@@ -128,6 +146,7 @@ public abstract class Staff implements StaffInterface {
 					"\t" + "Title: \"" + title + "\",\n" +
 					"\t" + "Name: \"" + firstName + "\",\n" +
 					"\t" + "Surname: \"" + secondName + "\",\n" +
+					"\t" + "Job title: \"" + role + "\",\n" +
 					"\t" + "Staff type (A for Admin, M for Medical): \"" + staffType + "\",\n" +
 					"\t" + "Salary (EUR): \"" + salary + "\",\n" +
 					"\t" + "Year joined: \"" + yearJoined + "\",\n" +
