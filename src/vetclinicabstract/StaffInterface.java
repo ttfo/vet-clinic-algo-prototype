@@ -19,7 +19,8 @@ public interface StaffInterface {
 	 * 
 	 * @param years of service in the company, level of qualification
 	 * [QUALIFICATION LEVEL] within square brackets:
-	 * Trainee Vet [1] / Receptionist [2] / Nurse [3] / IT Nerd [4] / Veterinarian [5]
+	 * Trainee Vet [1] / Receptionist [2] / Nurse [3] / 
+	 * IT Nerd [4] / Veterinarian [5] / Vet Surgeon [6] / Vet Locum [7]
 	 * 
 	 * @return an integer that represents the salary level starting from a certain threshold, e.g. 50
 	 * 

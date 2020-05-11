@@ -31,7 +31,8 @@ public abstract class Staff implements StaffInterface {
 	protected char staffType; // can be 'A' for Admin or 'M' for Medical	
 	protected int salary;
 	protected int yearJoined;
-	protected int qualificationLevel; // Trainee Vet [1] / Receptionist [2] / Nurse [3] / IT Nerd [4] / Veterinarian [5]
+	// qualificationLevel => Trainee Vet [1] / Receptionist [2] / Nurse [3] / IT Nerd [4] / Veterinarian [5] / Vet Surgeon [6]  / Vet Locum [7]
+	protected int qualificationLevel; 
 	protected String employeeId;
 	
 	private int baseSalaryLevel = 49; // Base salary level for all employees
@@ -41,9 +42,9 @@ public abstract class Staff implements StaffInterface {
 	
 	// Implementation of the StaffSalaryCalculator interface method
 	public int genSalaryLevel(int yearsOfService, int qualificationLevel) { 
-		// Every five years in service employee gains 1 level
+		// Every year in service employee gains 1 level
 		// Qualification is also factored in
-		int salaryLevel = baseSalaryLevel + (yearsOfService / 5) + (qualificationLevel * 10);
+		int salaryLevel = baseSalaryLevel + (yearsOfService) + (qualificationLevel * qualificationLevel * 5);
 		return salaryLevel;
 	}
 
@@ -138,7 +139,6 @@ public abstract class Staff implements StaffInterface {
 	}
 	
 	// TO STRING METHOD
-	// TODO
 	@Override
 	public String toString() {
 		return "{\n"+

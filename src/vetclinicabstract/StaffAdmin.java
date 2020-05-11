@@ -14,17 +14,10 @@ public abstract class StaffAdmin extends Staff {
 	
 	// About having or not having default constructor - https://stackoverflow.com/questions/4488716/java-default-constructor
 	
-	public int adminCategory; // medical category- can be IT technician (it), receptionist (r)
 	public String adminTask;
 	
 	// SETTERS AND GETTERS
-	
-	public int getAdminCategory() {
-		return adminCategory;
-	}
-	public void setAdminCategory(int adminCategory) {
-		this.adminCategory = adminCategory;
-	}
+
 	public String getAdminTask() {
 		return adminTask;
 	}

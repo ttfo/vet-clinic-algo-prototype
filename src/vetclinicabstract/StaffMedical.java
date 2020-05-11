@@ -9,7 +9,7 @@ public abstract class StaffMedical extends Staff {
 	 */
 	
 	public boolean isTrainedForExoticPets; // vet, nurse or trainee qualified to deal with exotic pets
-	public int medicalCategory; // medical category- can be vet (v), nurse (n) or trainee vet (tv)
+	public boolean isSmallAnimalsOnly; // e.g. https://www.vetjobs.ie/jobs/34234736-small-animal-vet-required-in-beautiful-ennis-at-ennis-veterinary-clinic
 	
 	// SETTERS AND GETTERS
 
@@ -19,11 +19,29 @@ public abstract class StaffMedical extends Staff {
 	public void setTrainedForExoticPets(boolean isTrainedForExoticPets) {
 		this.isTrainedForExoticPets = isTrainedForExoticPets;
 	}
-	public int getMedicalCategory() {
-		return medicalCategory;
+	public boolean isSmallAnimalsOnly() {
+		return isSmallAnimalsOnly;
 	}
-	public void setMedicalCategory(int medicalCategory) {
-		this.medicalCategory = medicalCategory;
+	public void setSmallAnimalsOnly(boolean isSmallAnimalsOnly) {
+		this.isSmallAnimalsOnly = isSmallAnimalsOnly;
 	}
+	
+	// TO STRING METHOD
+	@Override
+	public String toString() {
+		return "{\n"+
+					"\t" + "Employee Id: \"" + employeeId + "\",\n" +
+					"\t" + "Title: \"" + title + "\",\n" +
+					"\t" + "Name: \"" + firstName + "\",\n" +
+					"\t" + "Surname: \"" + secondName + "\",\n" +
+					"\t" + "Job title: \"" + role + "\",\n" +
+					"\t" + "Staff type (A for Admin, M for Medical): \"" + staffType + "\",\n" +
+					"\t" + "Salary (EUR): \"" + salary + "\",\n" +
+					"\t" + "Year joined: \"" + yearJoined + "\",\n" +
+					"\t" + "Qualification level: \"" + qualificationLevel + "\",\n" +
+					"\t" + "Handles small animals only: \"" + isSmallAnimalsOnly + "\",\n" +
+					"\t" + "Handles exotic pets: \"" + isTrainedForExoticPets + "\"\n" +
+				"}\n";
+	}	
 
 }

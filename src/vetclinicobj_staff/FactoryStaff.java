@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Random;
 
 import vetclinicabstract.Staff;
+import vetclinicabstract.StaffMedical;
 
 public class FactoryStaff {
 
@@ -29,7 +30,7 @@ public class FactoryStaff {
 	public int staffCount; // = adminStaffCount + medicalStaffCount;
 	public int yearClinicFoundation = 2000;
 	public int currentYear = Calendar.getInstance().get(Calendar.YEAR); // REF. https://stackoverflow.com/questions/136419/get-integer-value-of-the-current-year-in-java
-	public int maxYearsAsTrainee = 2;	
+	public int maxYearsAsTraineeOrLocum = 2;	
 	
 	ArrayList<Staff> staff = new ArrayList<Staff>();
 	
@@ -49,13 +50,44 @@ public class FactoryStaff {
 			Random r = new Random();
 			
 			// generating vets
+			boolean isNotSurgeon = false;
+			boolean isLocum = false;
+			boolean isNotVetOnCall = false;
+			
 			for (int i = 0; i < vetStaffCount; i++) {
 				StaffMedicalVet vet = new StaffMedicalVet();
 				vet.setStaffType('M');
-				vet.setQualificationLevel(5);
-				vet.setRole("Vet Physician");
 				vet.setTitle("Dr."); // REF https://www.thejournal.ie/ireland-doctors-vets-new-animals-2696672-Apr2016/
+				
+				if (!isNotSurgeon) {
+					vet.isSurgeon = true;					
+					if (!isLocum) {		
+						vet.isSurgeon = true; // We need at least 1 FTE surgeon on call in the clinic
+						vet.setQualificationLevel(6);
+						vet.setRole("Vet Surgeon");
+						vet.isLocum = false;
+						if (!isNotVetOnCall) {
+							vet.isVetOnCall = true;
+						} else {
+							isNotVetOnCall = true; // we only need 1 vet to be 'on call'
+							vet.isVetOnCall = false;
+						}
+					} else {
+						vet.setQualificationLevel(7);
+						vet.setRole("Vet Locum");
+						vet.isLocum = true;
+					}
+					
+				} else {
+					vet.isSurgeon = false;
+					vet.setQualificationLevel(5);
+					vet.setRole("Vet Physician");					
+				}
+				
 				staff.add(vet);
+				
+				isNotSurgeon = r.nextBoolean(); // REF. https://stackoverflow.com/questions/8878015/return-true-or-false-randomly
+				isLocum = r.nextBoolean();				
 				//System.out.println(vet.toString()); //<= TEST POINT
 			}
 			
@@ -151,8 +183,6 @@ public class FactoryStaff {
 		for (int i = 0; i < staff.size(); i++) {
 			int rndIndex1 = r.nextInt(firstNames.size());
 			int rndIndex2 = r.nextInt(secondNames.size());
-			// String staffFullName = firstNames.get(rndIndex1) + " " + secondNames.get(rndIndex2);
-			// staffFullNames[i] = staffFullName;
 			Staff staffMember = staff.get(i);
 			staffMember.setFirstName(firstNames.get(rndIndex1));
 			staffMember.setSecondName(secondNames.get(rndIndex2));
@@ -170,15 +200,22 @@ public class FactoryStaff {
 		
 		Random r = new Random();
 		
+		boolean handlesSmallAnimalsOnly = false;	
+		boolean handlesNotExoticPetsOnly = false;			
+		
 		for (int i = 0; i < staff.size(); i++) {
 			
 			Staff staffMember = staff.get(i);
 			int yearJoinedRdm = 0;
 			
 			// setYearsOfService
-			if (staffMember.getQualificationLevel() == 1) { 
-				// trainees can't be in this position for more than a certain amount of years
-				yearJoinedRdm = currentYear - r.nextInt(maxYearsAsTrainee);			
+			
+			if (staffMember instanceof StaffMedicalVetTrainee || staffMember.getRole() == "Vet Locum") {
+				// condition can also be written as
+				// if (staffMember.getQualificationLevel() == 1 || staffMember.getQualificationLevel() == 7)
+				// trainees and locum vets can't be in their position for more than a certain amount of years
+				// about 'instanceof' REF.: https://www.javatpoint.com/downcasting-with-instanceof-operator
+				yearJoinedRdm = currentYear - r.nextInt(maxYearsAsTraineeOrLocum);			
 			} else {
 				yearJoinedRdm = yearClinicFoundation + r.nextInt(currentYear - yearClinicFoundation);
 			}
@@ -190,6 +227,17 @@ public class FactoryStaff {
 
 			// setSalary
 			staffMember.setSalary(staffMember.salaryCalculator(staffMember.genSalaryLevel(staffMember.getYearsOfService(), staffMember.getQualificationLevel())));
+
+			// set Medical Staff attributes		
+			
+			if (staffMember instanceof StaffMedical) { 
+			// condition can also be written as	
+			// if (staffMember.getStaffType() == 'M')
+				((StaffMedical) staffMember).isSmallAnimalsOnly = handlesSmallAnimalsOnly;
+				((StaffMedical) staffMember).isTrainedForExoticPets = !handlesNotExoticPetsOnly;				
+				handlesSmallAnimalsOnly = r.nextBoolean();
+				handlesNotExoticPetsOnly = r.nextBoolean();
+			}
 			
 			System.out.println((i+1) + ")\n" + staffMember.toString()); //<= TEST POINT
 			
