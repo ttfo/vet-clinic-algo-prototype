@@ -32,7 +32,7 @@ public class Main {
 		 * Creates 'animal' objects with a param that allows to determine overall number of animals
 		 * 1000 animals is the min requirement as per CA specs
 		 */		
-		FactoryAnimal factoryAnimal = new FactoryAnimal(63);
+		FactoryAnimal factoryAnimal = new FactoryAnimal(1000);
 		LinkedList<Animal> animals = factoryAnimal.getAnimals();
 		//System.out.println(factoryAnimal.toString()); //<= TEST POINT
 		
@@ -43,7 +43,8 @@ public class Main {
 		 * knowing which Medical Staff member is assigned to which animal.
 		 */
 		QueueSystem qs= new QueueSystem(medicalStaff,animals);
-		//System.out.println(medicalStaff.toString()); //<= TEST POINT
+		// medicalStaff's queues are now populated with animals
+		System.out.println(medicalStaff.toString()); //<= TEST POINT
 		
 	}	
 

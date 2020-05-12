@@ -35,9 +35,10 @@ public class FactoryStaff {
 	private int maxYearsAsTraineeOrLocum = 2;	
 
 	public int staffCount; // = adminStaffCount + medicalStaffCount;
+	
 	public ArrayList<Staff> staff = new ArrayList<Staff>();
 	public LinkedList<StaffMedical> medicalStaff = new LinkedList<StaffMedical>();
-	
+
 	public ArrayList<Staff> getStaff() {
 		return staff;
 	}	
