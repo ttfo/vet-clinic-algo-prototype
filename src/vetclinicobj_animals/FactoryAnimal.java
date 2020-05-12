@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -19,10 +20,10 @@ public class FactoryAnimal {
 	 * However, you can include additional Animal types for extra marks
 	 */
 	
-	ArrayList<Animal> animals = new ArrayList<Animal>();
-	public ArrayList<Animal> getAnimals() {
+	LinkedList<Animal> animals = new LinkedList<Animal>();
+	public LinkedList<Animal> getAnimals() {
 		return animals;
-	}	
+	}
 	
 	// Need to get subclasses of Animal and its count
 	

@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.Random;
 
 import vetclinicabstract.Staff;
@@ -35,12 +36,21 @@ public class FactoryStaff {
 
 	public int staffCount; // = adminStaffCount + medicalStaffCount;
 	public ArrayList<Staff> staff = new ArrayList<Staff>();
+	public LinkedList<StaffMedical> medicalStaff = new LinkedList<StaffMedical>();
 	
 	public ArrayList<Staff> getStaff() {
 		return staff;
 	}	
 	public int getstaffCount() {
 		return staffCount;
+	}
+	public LinkedList<StaffMedical> getMedicalStaff() {
+		for (Staff st : staff) {
+			if (st instanceof StaffMedical) {
+				medicalStaff.add((StaffMedical) st);
+			}
+		}
+		return medicalStaff;
 	}
 	
 	public FactoryStaff(int adminStaffCount, int medicalStaffCount, int vetStaffCount) throws IOException {

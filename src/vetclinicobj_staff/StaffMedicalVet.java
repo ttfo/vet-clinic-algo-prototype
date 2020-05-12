@@ -50,7 +50,8 @@ public class StaffMedicalVet extends StaffMedical {
 					"\t" + "Handles exotic pets: \"" + isTrainedForExoticPets + "\",\n" +					
 					"\t" + "Is Surgeon Vet: \"" + isSurgeon + "\",\n" +
 					"\t" + "Is Locum Vet: \"" + isLocum + "\",\n" +
-					"\t" + "Is Vet on call: \"" + isVetOnCall + "\"\n" +
+					"\t" + "Is Vet on call: \"" + isVetOnCall + "\",\n" +
+					"\t" + "Queue: \"" + animalQ.toString() + "\"\n" +
 				"}\n";
 	}
 	

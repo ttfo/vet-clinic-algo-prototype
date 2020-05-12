@@ -1,4 +1,6 @@
 package vetclinicabstract;
+import java.util.Deque;
+import java.util.LinkedList;
 
 public abstract class StaffMedical extends Staff {
 	
@@ -10,6 +12,8 @@ public abstract class StaffMedical extends Staff {
 	
 	public boolean isTrainedForExoticPets; // vet, nurse or trainee qualified to deal with exotic pets
 	public boolean isSmallAnimalsOnly; // e.g. https://www.vetjobs.ie/jobs/34234736-small-animal-vet-required-in-beautiful-ennis-at-ennis-veterinary-clinic
+	
+	public Deque<Animal> animalQ = new LinkedList<Animal>();
 	
 	// SETTERS AND GETTERS
 
@@ -25,6 +29,27 @@ public abstract class StaffMedical extends Staff {
 	public void setSmallAnimalsOnly(boolean isSmallAnimalsOnly) {
 		this.isSmallAnimalsOnly = isSmallAnimalsOnly;
 	}
+	public Deque<Animal> getAnimalQ() {
+		return animalQ;
+	}
+	
+	// Add to Queue method
+	
+//	public Queue<Animal> addToQ(Animal animal) {
+//		animalQ.add(animal);
+//		return animalQ;
+//	}
+	
+	public void addToQ(Animal animal) {
+		animalQ.addLast(animal); // add(e) method can also be used
+	}	
+	
+	// Remove from Queue method
+	
+	public Deque<Animal> removeFromQ() {
+		animalQ.remove(); // removeFirst() method can also be used
+		return animalQ;
+	}	
 	
 	// TO STRING METHOD
 	@Override
@@ -40,7 +65,8 @@ public abstract class StaffMedical extends Staff {
 					"\t" + "Year joined: \"" + yearJoined + "\",\n" +
 					"\t" + "Qualification level: \"" + qualificationLevel + "\",\n" +
 					"\t" + "Handles small animals only: \"" + isSmallAnimalsOnly + "\",\n" +
-					"\t" + "Handles exotic pets: \"" + isTrainedForExoticPets + "\"\n" +
+					"\t" + "Handles exotic pets: \"" + isTrainedForExoticPets + "\",\n" +
+					"\t" + "Queue: \"" + animalQ.toString() + "\"\n" +
 				"}\n";
 	}	
 
