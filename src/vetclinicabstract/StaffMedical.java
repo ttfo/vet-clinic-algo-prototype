@@ -37,19 +37,12 @@ public abstract class StaffMedical extends Staff {
 		return animalQ;
 	}
 	
-	// Add to Queue method
-	
-//	public Queue<Animal> addToQ(Animal animal) {
-//		animalQ.add(animal);
-//		return animalQ;
-//	}
-	
+	// Add to Queue method	
 	public void addToQ(Animal animal) {
 		animalQ.addLast(animal); // add(e) method can also be used
 	}	
 	
 	// Remove from Queue method
-	
 	public Deque<Animal> removeFromQ() {
 		animalQ.remove(); // removeFirst() method can also be used
 		return animalQ;

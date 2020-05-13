@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -348,13 +349,50 @@ public class Menu {
 			if(option == 3) { 
 				switch (secondaryOption) {
 					case 1: // List all the animals assigned to individual medical staff member
-						System.out.println("Your reached 1st Query!!");
+						for(StaffMedical stMed: medicalStaff){
+							
+							Deque<Animal> animalQ = stMed.getAnimalQ();
+							
+							String staffDetails = ("Staff ID " + stMed.getEmployeeId() + ": "
+									+ ((stMed.getTitle() != null) ? stMed.getTitle() : "") + stMed.getFirstName() + " "
+									+ stMed.getSecondName() + "\r\n");
+							String staffSpecialty = (stMed.getRole() + " specialized in: " + (stMed.isSmallAnimalsOnly() ? "small only" : "small or big")
+									+ " and " + (stMed.isTrainedForExoticPets() ? "exotic or native" : "native only")
+									+ " animals\r\n");							
+							System.out.println(staffDetails + staffSpecialty + "\r\n" + stMed.getFirstName() +
+									"'s QUEUE:\r\n");
+							for(Animal anm: animalQ) {
+								System.out.println("Pet name: "+ anm.getPetName() + " (" +
+										anm.getAnimalType() + "), " + anm.getAge() + " y.o. Condition: " + anm.getMedicalCondition());								
+							}							
+							System.out.println("\r\n------\r\n");
+						}
+						System.out.println("\r\n*DONE!*\r\n");
 						break;
 					case 2: // List queue order by individual medical staff member
 						break;
 					case 3: // Move to next pet in queue for individual medical staff member
 						break;	
 					case 4: // BONUS! Show count of pets in queue for all medical staff
+						for(StaffMedical stMed: medicalStaff){
+							
+							Deque<Animal> animalQ = stMed.getAnimalQ();
+							int animalCountInQ = 0;
+							for(Animal anm: animalQ) {
+								animalCountInQ += 1;								
+							}
+							
+							String staffDetails = ("Staff ID " + stMed.getEmployeeId() + ": "
+									+ ((stMed.getTitle() != null) ? stMed.getTitle() : "") + stMed.getFirstName() + " "
+									+ stMed.getSecondName() + "\r\n");
+							String staffSpecialty = (stMed.getRole() + " specialized in: " + (stMed.isSmallAnimalsOnly() ? "small only" : "small or big")
+									+ " and " + (stMed.isTrainedForExoticPets() ? "exotic or native" : "native only")
+									+ " animals\r\n");							
+							System.out.println(staffDetails + staffSpecialty + "\r\n" + stMed.getFirstName() +
+									"'s QUEUE: " + animalCountInQ + " animals");							
+							System.out.println("\r\n------\r\n");
+						}
+						System.out.println("\r\n*DONE!*\r\n");						
 						break;								
 					default: break;
 				}
