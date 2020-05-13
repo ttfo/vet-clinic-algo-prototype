@@ -1,10 +1,10 @@
-Administer Payroll
-Issue payslips
-Organize meetings
+Administering Payroll
+Issuing payslips
+Organizing meetings
 Reporting
-Replenish supplies
-Find contractors
-Hire contractors
-Bills payment
-Add patient to system
-Add visit to system
+Replenishing supplies
+Finding contractors
+Hiring contractors
+Paying bills
+Adding patient to system
+Adding visit to system

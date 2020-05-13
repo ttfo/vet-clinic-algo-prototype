@@ -5,6 +5,6 @@ Software upgrade
 Server health check-up
 Backup and disaster recovery planning
 Patching
-Fix laptop
-Fix desktop
-Fix network
+Fixing laptops
+Fixing desktops
+Fixing network

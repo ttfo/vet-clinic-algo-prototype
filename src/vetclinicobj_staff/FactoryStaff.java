@@ -86,8 +86,8 @@ public class FactoryStaff {
 						vet.isLocum = false;
 						if (!isNotVetOnCall) {
 							vet.isVetOnCall = true;
-						} else {
 							isNotVetOnCall = true; // we only need 1 vet to be 'on call'
+						} else {
 							vet.isVetOnCall = false;
 						}
 					} else {
