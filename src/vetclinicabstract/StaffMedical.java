@@ -10,6 +10,10 @@ public abstract class StaffMedical extends Staff {
 	 * firstName, secondName, EmployeeId, etc. as attributes.
 	 */
 	
+	public StaffMedical() {
+		staffType = 'M';
+	}
+	
 	public boolean isTrainedForExoticPets; // vet, nurse or trainee qualified to deal with exotic pets
 	public boolean isSmallAnimalsOnly; // e.g. https://www.vetjobs.ie/jobs/34234736-small-animal-vet-required-in-beautiful-ennis-at-ennis-veterinary-clinic
 	

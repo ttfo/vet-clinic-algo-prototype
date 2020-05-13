@@ -4,9 +4,9 @@ import vetclinicabstract.StaffMedical;
 
 public class StaffMedicalVetTrainee extends StaffMedical {
 	
-	// This class has no additional attributes for now, compared to its parent class
-	
-	// About missing constructor: I wanted to try a different approach for Staff members
-	// All attributes are defined via FactoryStaff class
+	public StaffMedicalVetTrainee() {
+		role = "Vet Trainee";
+		qualificationLevel = 1;	//LEVELS- Trainee Vet [1] / Receptionist [2] / Nurse [3] / IT Nerd [4] / Veterinarian [5] / Vet Surgeon [6] / Vet Locum [7]
+	}
 
 }

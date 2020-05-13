@@ -4,9 +4,11 @@ import vetclinicabstract.StaffAdmin;
 
 public class StaffAdminITNerd extends StaffAdmin {
 	
-	// About missing constructor
-	// I wanted to try a different approach for Staff members
-	// All attributes are defined via FactoryStaff class
+	public StaffAdminITNerd() {
+		title = "Eng.";
+		role = "IT Technician";
+		qualificationLevel = 4;	//LEVELS- Trainee Vet [1] / Receptionist [2] / Nurse [3] / IT Nerd [4] / Veterinarian [5] / Vet Surgeon [6] / Vet Locum [7]
+	}
 
 	public boolean isITOnCall; // IT technician who is on call for emergencies, e.g. system is down over weekends or bank holidays
 

@@ -76,9 +76,7 @@ public class FactoryStaff {
 			
 			for (int i = 0; i < vetStaffCount; i++) {
 				StaffMedicalVet vet = new StaffMedicalVet();
-				vet.setStaffType('M');
-				vet.setTitle("Dr."); // REF https://www.thejournal.ie/ireland-doctors-vets-new-animals-2696672-Apr2016/
-				
+			
 				if (!isNotSurgeon) {
 					vet.isSurgeon = true;					
 					if (!isLocum) {		
@@ -99,9 +97,7 @@ public class FactoryStaff {
 					}
 					
 				} else {
-					vet.isSurgeon = false;
-					vet.setQualificationLevel(5);
-					vet.setRole("Vet Physician");					
+					vet.isSurgeon = false;				
 				}
 				
 				staff.add(vet);
@@ -117,16 +113,10 @@ public class FactoryStaff {
 				
 				if (!isTrainee) {
 					StaffMedicalNurse nurse = new StaffMedicalNurse();
-					nurse.setStaffType('M');
-					nurse.setQualificationLevel(3);
-					nurse.setRole("Vet Nurse");
 					staff.add(nurse);			
 					
 				} else {
 					StaffMedicalVetTrainee vetTrainee = new StaffMedicalVetTrainee();
-					vetTrainee.setStaffType('M');
-					vetTrainee.setQualificationLevel(1);
-					vetTrainee.setRole("Vet Trainee");
 					staff.add(vetTrainee);
 				}	
 				isTrainee = r.nextBoolean(); // REF. https://stackoverflow.com/questions/8878015/return-true-or-false-randomly
@@ -138,17 +128,10 @@ public class FactoryStaff {
 				
 				if (!isReceptionist) {
 					StaffAdminITNerd itNerd = new StaffAdminITNerd();
-					itNerd.setStaffType('A');
-					itNerd.setQualificationLevel(4);
-					itNerd.setRole("IT Technician");
-					itNerd.setTitle("Eng.");
 					staff.add(itNerd);			
 					
 				} else {
 					StaffAdminReceptionist receptionist = new StaffAdminReceptionist();
-					receptionist.setStaffType('A');
-					receptionist.setQualificationLevel(2);
-					receptionist.setRole("Receptionist");
 					staff.add(receptionist);
 				}	
 				isReceptionist = r.nextBoolean(); // REF. https://stackoverflow.com/questions/8878015/return-true-or-false-randomly

@@ -8,10 +8,6 @@ import vetclinicabstract.StaffMedical;
 
 public class QueueSystem {
 	
-//	protected LinkedList<StaffMedical> medicalStaffWithQ;
-//	protected LinkedList<Animal> animals;
-
-
 	public QueueSystem(LinkedList<StaffMedical> medicalStaff, LinkedList<Animal> animals) {
 		
 		// System.out.println(animals.toString()); //<= TEST POINT
@@ -43,9 +39,13 @@ public class QueueSystem {
 		LinkedList<Animal> animalBig = new LinkedList<Animal>();
 		LinkedList<Animal> animalNotBigNotExotic = new LinkedList<Animal>();
 		
-		// Populating lists
+		// Populating lists => criteria need to be mutually exclusive,
+		// as we can't have the same animal in multiple lists
+		
+		// TODO need to fix exotic&big animals assigned to 'exotic' staff who don't handle big animals
+		
 		for (Animal an : animals) {
-			// If exotic animal, needs to go into 'exotic' list for assignment
+			// If exotic animal, pet needs to go into 'exotic' list for assignment
 			if (an.getAnimalOrigin() == "exotic") {
 				animalExotic.add(an);
 			}

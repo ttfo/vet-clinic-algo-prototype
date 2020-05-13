@@ -13,6 +13,10 @@ public abstract class StaffAdmin extends Staff {
 	 */	
 	
 	// About having or not having default constructor - https://stackoverflow.com/questions/4488716/java-default-constructor
+
+	public StaffAdmin() {
+		staffType = 'A';
+	}
 	
 	public String adminTask;
 	

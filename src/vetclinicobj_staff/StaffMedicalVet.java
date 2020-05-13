@@ -4,8 +4,12 @@ import vetclinicabstract.StaffMedical;
 
 public class StaffMedicalVet extends StaffMedical {
 	
-	// About missing constructor: I wanted to try a different approach for Staff members
-	// All attributes are defined via FactoryStaff class
+	public StaffMedicalVet() {
+		title = "Dr."; // REF https://www.thejournal.ie/ireland-doctors-vets-new-animals-2696672-Apr2016/
+		role = "Vet Physician"; // Default role, is overridden in FactoryStaff for specialized jobs
+		//LEVELS- Trainee Vet [1] / Receptionist [2] / Nurse [3] / IT Nerd [4] / Veterinarian [5] / Vet Surgeon [6] / Vet Locum [7]
+		qualificationLevel = 5; // Default qualification level, is overridden in FactoryStaff for specialized jobs
+	}
 	
 	public boolean isVetOnCall; // vet who is on call for emergencies, e.g. over weekends or bank holidays		
 	public boolean isSurgeon; // vet qualified to perform surgery
