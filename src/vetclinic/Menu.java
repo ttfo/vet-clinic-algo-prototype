@@ -97,7 +97,7 @@ public class Menu {
 	
 	public Menu() throws IOException, InstantiationException, IllegalAccessException {
 		
-		// Following structure *borrowed* from 'Pizza' example done in Algo class (May 2020)
+		// Following structure derived from 'Pizza' example done in Algo class (May 2020)
 		
 		int option = -1;
 		int secondaryOption = -1;
@@ -109,25 +109,94 @@ public class Menu {
 				mainMenuOptions();
 				option = readingUser();
 				
-			} while (!validOptionMain(option)); // Validate the input is int between 0 and 9
-			
-			// If option is not 0 go to sub-menu
-			if(option != 0) {
-				//System.out.println(option+" selected ..."); //<= TEST POINT
-				do {
-					secondaryMenuOptions(option);
-					secondaryOption = readingUser();
-				} while (!validOptionMain(option)); // TODO Validation for secondary entries
+				secondaryMenuOptions(option);
+				secondaryOption = readingUser();
 				
 				// If option is valid run selected query
 				queryBuilder(option, secondaryOption);
-			}	
-		} while (option != 0);
+				
+				//System.out.println(option+" selected ..."); //<= TEST POINT
+//				do {
+//					secondaryMenuOptions(option);
+//					secondaryOption = readingUser();
+//				} while (!validOptionSub(option, secondaryOption));
+//				
+//				// If option is valid run selected query
+//				queryBuilder(option, secondaryOption);				
+				
+//			} while (!validOption(option, secondaryOption)); // Continue to show menu if input is not valid
+//			
+////			// If option is not 0 go to sub-menu
+////			if(validOption(option, secondaryOption)) {
+////				//System.out.println(option+" selected ..."); //<= TEST POINT
+//				do {
+//					secondaryMenuOptions(option);
+//					secondaryOption = readingUser();
+//					
+//					// If option is valid run selected query
+//					queryBuilder(option, secondaryOption);					
+				} while (!validOption(option, secondaryOption));
+
+				
+//			}	
+		} while (option != 0); // EXIT app when input is 0
 		
 		// If option is 0 exit
 		System.out.println("... Closing application ...");
 		return;
 		
+	}
+	
+	
+//	public boolean validOptionMain(int option) {
+//		return option >= 0 && option <= menuMainOptions.length;
+//	}	
+	
+	
+	public boolean validOption(int option, int secondaryOption) {
+		if (option == 1) { // STAFF Queries
+			// Need to allow free text on 'searching' queries
+			if (secondaryOption == 4) { // Search member of staff by name
+				return true;
+			} else {
+				return option >= 0 && option <= menuSecondaryOptionsStaff.length;
+			}
+		} 
+		if (option == 2) { // PETS Queries
+			// Need to allow free text on 'searching' queries
+			if (secondaryOption == 2) { // Search for pet by name
+				return true;
+			} else {			
+			return option >= 0 && option <= menuSecondaryOptionsPets.length;
+			}
+		} 
+		if (option == 3) { // QUEUE MANAGEMENT Queries
+			// Need to allow free text on 'searching' queries
+			if (secondaryOption == 2 || secondaryOption == 3) { // OPTIONS: List queue order by individual medical staff member
+				// & Move to next pet in queue for individual medical staff member
+				return true;
+			} else {				
+				return option >= 0 && option <= menuSecondaryOptionsQ.length;
+			}
+		} 		
+		return option >= 0 && option <= menuMainOptions.length;
+	}	
+	
+	public int readingUser() {
+		// REF. https://stackoverflow.com/questions/5287538/how-to-get-the-user-input-in-java
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String optionString = null;
+		int option = -1; 
+		
+		try {
+			optionString = br.readLine();
+			option = Integer.parseInt(optionString); 
+			 
+		} catch (IOException | NumberFormatException e) {
+			System.out.println("That's not a valid option, please select an option from the menu:");
+		}
+		
+		return option;
 	}
 	
 	public void mainMenuOptions() {
@@ -137,6 +206,7 @@ public class Menu {
 		}
 		System.out.println("Press 0 to EXIT");
 	}
+	
 	
 	public void secondaryMenuOptions(int menuBranch) {
 		//System.out.println("Sub-menu =>"+menuBranch); //<= TEST POINT
@@ -165,6 +235,7 @@ public class Menu {
 	        default: break;
         }		
 	}	
+	
 	
 	public void queryBuilder(int option, int secondaryOption) {
 		
@@ -399,28 +470,6 @@ public class Menu {
 			}					
 		}
 		
-	}
-	
-	public int readingUser() {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		String optionString = null;
-		int option = -1; 
-		
-		try {
-			optionString = br.readLine();
-			option = Integer.parseInt(optionString); 
-			 
-		} catch (IOException | NumberFormatException e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-			System.out.println("That's not a valid option, please type 0-9");
-		}
-		
-		return option;
-	}
-	
-	public boolean validOptionMain(int option) {
-		return option >= 0 && option <= menuMainOptions.length;
 	}
 
 }
