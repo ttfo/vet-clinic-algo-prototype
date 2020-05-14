@@ -302,6 +302,12 @@ public class Menu {
 						ArrayList<String> medicalVetList = new ArrayList<String>();
 						ArrayList<String> medicalVetTraineeList = new ArrayList<String>();
 						
+						int adminITNerdTOTPay = 0;
+						int adminReceptionistTOTPay = 0;
+						int medicalNurseTOTPay = 0;
+						int medicalVetTOTPay = 0;
+						int medicalVetTraineeTOTPay = 0;
+						
 						for(Staff st: staff){
 							
 							// About StringBuilder REF. https://www.javatpoint.com/StringBuilder-class
@@ -311,16 +317,23 @@ public class Menu {
 									+ st.getSecondName());
 							
 							if (st instanceof StaffAdminITNerd) {
+								
 								// show 'ON CALL' is the staff member is 'on call' person for emergencies
 								// 'on call' only applies to 1 IT person and 1 Vet
 								if (((StaffAdminITNerd) st).isITOnCall() == true) {
 									stDetails.append(" (ON CALL)");
 								}
 								adminITNerdList.add(stDetails.toString());
+								adminITNerdTOTPay += st.getSalary();
+								
 							} else if (st instanceof StaffAdminReceptionist) {
 								adminReceptionistList.add(stDetails.toString());
+								adminReceptionistTOTPay += st.getSalary();
+								
 							} else if (st instanceof StaffMedicalNurse) {
 								medicalNurseList.add(stDetails.toString());
+								medicalNurseTOTPay += st.getSalary();
+								
 							} else if (st instanceof StaffMedicalVet) {
 								// show 'ON CALL' is the staff member is 'on call' person for emergencies
 								// 'on call' only applies to 1 IT person and 1 Vet								
@@ -328,37 +341,67 @@ public class Menu {
 									stDetails.append(" (ON CALL)");
 								}								
 								medicalVetList.add(stDetails.toString());
+								medicalVetTOTPay += st.getSalary();
+								
 							} else if (st instanceof StaffMedicalVetTrainee) {
 								medicalVetTraineeList.add(stDetails.toString());
+								medicalVetTraineeTOTPay += st.getSalary();
 							}
+							
 						}
 						
+						int medicalTOTPay = medicalNurseTOTPay + medicalVetTOTPay + medicalVetTraineeTOTPay;
+						int adminTOTPay = adminITNerdTOTPay + adminReceptionistTOTPay; 
+						
 						System.out.println("\r\n*** MEDICAL STAFF ***\r\n");
+						System.out.println("Total number of Medical Staff: " + (medicalNurseList.size()+medicalVetList.size()+medicalVetTraineeList.size()) + ".");							
+						System.out.println("AVG salary: " + (medicalTOTPay/(medicalNurseList.size()+medicalVetList.size()+medicalVetTraineeList.size())) + " EUR.\r\n");
 						
 						System.out.println("\r\n*** List of Vets ***\r\n");
+						System.out.println("Total number of Vet Doctors: " + medicalVetList.size() + ".");						
+						System.out.println("AVG salary: " + (medicalVetTOTPay/medicalVetList.size()) + " EUR.\r\n");
+						
 						for (String str : medicalVetList) {
 							System.out.println(str);
-						}						
+						}	
+						
 						System.out.println("\r\n*** List of Nurses ***\r\n");
+						System.out.println("Total number of Nurses: " + medicalNurseList.size() + ".");						
+						System.out.println("AVG salary: " + (medicalNurseTOTPay/medicalNurseList.size()) + " EUR.\r\n");						
+						
 						for (String str : medicalNurseList) {
 							System.out.println(str);
-						}						
+						}
+						
 						System.out.println("\r\n*** List of Vet Trainees ***\r\n");
+						System.out.println("Total number of Vet Trainees: " + medicalVetTraineeList.size() + ".");						
+						System.out.println("AVG salary: " + (medicalVetTraineeTOTPay/medicalVetTraineeList.size()) + " EUR.\r\n");						
+						
 						for (String str : medicalVetTraineeList) {
 							System.out.println(str);
 						}	
 						System.out.println("\r\n------\r\n");
 						
 						System.out.println("\r\n*** ADMIN STAFF ***\r\n");	
+						System.out.println("Total number of Admin Staff: " + (adminITNerdList.size()+adminReceptionistList.size()) + ".");							
+						System.out.println("AVG salary: " + (adminTOTPay/(adminITNerdList.size()+adminReceptionistList.size())) + " EUR.\r\n");	
 						
 						System.out.println("\r\n*** List of IT Technicians ***\r\n");
+						System.out.println("Total number of IT Technicians: " + (adminITNerdList.size()) + ".");							
+						System.out.println("AVG salary: " + (adminITNerdTOTPay/adminITNerdList.size()) + " EUR.\r\n");	
+						
 						for (String str : adminITNerdList) {
 							System.out.println(str);
 						}
+						
 						System.out.println("\r\n*** List of Receptionist ***\r\n");
+						System.out.println("Total number of Receptionists: " + (adminReceptionistList.size()) + ".");							
+						System.out.println("AVG salary: " + (adminReceptionistTOTPay/adminReceptionistList.size()) + " EUR.\r\n");	
+						
 						for (String str : adminReceptionistList) {
 							System.out.println(str);
 						}
+						
 						System.out.println("\r\n*DONE!*\r\n");
 						break;
 						

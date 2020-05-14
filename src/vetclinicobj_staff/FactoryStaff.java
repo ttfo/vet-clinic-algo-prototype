@@ -25,12 +25,7 @@ public class FactoryStaff {
 	 * cannot all be the same type). There must be at least 3 different types of
 	 * Medical staff.
 	 */
-	
-	// DEFAULT MIN VALUES AS PER ASSIGNMENT
-	//	public int adminStaffCount; // = 10; // min requirement from CA specs
-	//	public int medicalStaffCount; // = 30; // min requirement from CA specs
-	//	public int vetStaffCount; // = 5; // min requirement from CA specs, sub-group of 'medicalStaff'
-	
+
 	private int yearClinicFoundation = 2000;
 	private int currentYear = Calendar.getInstance().get(Calendar.YEAR); // REF. https://stackoverflow.com/questions/136419/get-integer-value-of-the-current-year-in-java
 	private int maxYearsAsTraineeOrLocum = 2;
@@ -55,18 +50,26 @@ public class FactoryStaff {
 		}
 		return medicalStaff;
 	}
-	
+
+	/**
+	 * Creates array list of 'staff' objects with variable numbers of admin/ medical and vet staff members.
+	 * Values passed as params (10, 30, 5) represent the min requirement as for the specs in CA,
+	 * however bigger values are also supported, e.g. (40, 60, 10)
+	 * @param adminStaffCount => total number of admin staff members that need to be auto-generated
+	 * @param medicalStaffCount => total number of medical staff members that need to be auto-generated
+	 * @param vetStaffCount => total number of vet doctors that need to be auto-generated (sub-group of medicalStaffCount)
+	 */	
 	public FactoryStaff(int adminStaffCount, int medicalStaffCount, int vetStaffCount) throws IOException {
 		
 		ExceptionCustom eCust = new ExceptionCustom();
 		
 		if (vetStaffCount > (medicalStaffCount-numberOfMedicalCategories)) {
 			//vet is a sub-group of medical staff and we cannot have more vets than medical staff
-			System.out.println("[INTERNAL WARNING] vetStaffCount is a sub-group of medicalStaffCount. vetStaffCount cannot be bigger than medicalStaffCount.");
+			//System.out.println("[INTERNAL WARNING] vetStaffCount is a sub-group of medicalStaffCount. vetStaffCount cannot be bigger than medicalStaffCount.");
 			eCust.checkEligibilty(medicalStaffCount, vetStaffCount);
 			return;
 		} else if (vetStaffCount < 5) { 
-			System.out.println("[INTERNAL WARNING] We need at least 5 Vets.");
+			//System.out.println("[INTERNAL WARNING] We need at least 5 Vets.");
 			eCust.checkMinVet(vetStaffCount);
 			return;		
 		} else {
