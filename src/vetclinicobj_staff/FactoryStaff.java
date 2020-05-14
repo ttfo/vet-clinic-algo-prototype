@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Random;
 
-import vetclinic.Throwable;
+import vetclinic.ExceptionCustom;
 import vetclinicabstract.Staff;
 import vetclinicabstract.StaffAdmin;
 import vetclinicabstract.StaffMedical;
@@ -33,7 +33,8 @@ public class FactoryStaff {
 	
 	private int yearClinicFoundation = 2000;
 	private int currentYear = Calendar.getInstance().get(Calendar.YEAR); // REF. https://stackoverflow.com/questions/136419/get-integer-value-of-the-current-year-in-java
-	private int maxYearsAsTraineeOrLocum = 2;	
+	private int maxYearsAsTraineeOrLocum = 2;
+	private int numberOfMedicalCategories = 3;
 
 	public int staffCount; // = adminStaffCount + medicalStaffCount;
 	
@@ -56,16 +57,17 @@ public class FactoryStaff {
 	}
 	
 	public FactoryStaff(int adminStaffCount, int medicalStaffCount, int vetStaffCount) throws IOException {
-		Throwable throwable = new Throwable();
-		throwable.checkEligibilty(medicalStaffCount, vetStaffCount);
 		
-		if (vetStaffCount > medicalStaffCount) {
+		ExceptionCustom eCust = new ExceptionCustom();
+		
+		if (vetStaffCount > (medicalStaffCount-numberOfMedicalCategories)) {
 			//vet is a sub-group of medical staff and we cannot have more vets than medical staff
 			System.out.println("[INTERNAL WARNING] vetStaffCount is a sub-group of medicalStaffCount. vetStaffCount cannot be bigger than medicalStaffCount.");
+			eCust.checkEligibilty(medicalStaffCount, vetStaffCount);
 			return;
 		} else if (vetStaffCount < 5) { 
 			System.out.println("[INTERNAL WARNING] We need at least 5 Vets.");
-			throwable.checkMinVet(vetStaffCount);
+			eCust.checkMinVet(vetStaffCount);
 			return;		
 		} else {
 			
