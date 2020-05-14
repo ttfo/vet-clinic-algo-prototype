@@ -99,46 +99,67 @@ public class Menu {
 		
 		// Following structure derived from 'Pizza' example done in Algo class (May 2020)
 		
-		int option = -1;
-		int secondaryOption = -1;
+		Integer option;
+		Integer secondaryOption;
+		String searchBox;
 		
 		System.out.println(ASCIIArt);
 		do {
 			do {
+				option = null; // resetting user input
+				secondaryOption = null; // resetting user input
+				searchBox = null; // resetting user input
+				
 				// Show main options and read user input
 				mainMenuOptions();
 				option = readingUser();
 				
-				secondaryMenuOptions(option);
-				secondaryOption = readingUser();
-				
-				// If option is valid run selected query
-				queryBuilder(option, secondaryOption);
-				
-				//System.out.println(option+" selected ..."); //<= TEST POINT
-//				do {
-//					secondaryMenuOptions(option);
-//					secondaryOption = readingUser();
-//				} while (!validOptionSub(option, secondaryOption));
-//				
-//				// If option is valid run selected query
-//				queryBuilder(option, secondaryOption);				
-				
-//			} while (!validOption(option, secondaryOption)); // Continue to show menu if input is not valid
-//			
-////			// If option is not 0 go to sub-menu
-////			if(validOption(option, secondaryOption)) {
-////				//System.out.println(option+" selected ..."); //<= TEST POINT
-//				do {
-//					secondaryMenuOptions(option);
-//					secondaryOption = readingUser();
-//					
-//					// If option is valid run selected query
-//					queryBuilder(option, secondaryOption);					
-				} while (!validOption(option, secondaryOption));
+				if (validOption(option, secondaryOption) && option != 0) {
+					
+					secondaryMenuOptions(option);
+					secondaryOption = readingUser();
+					
+					// If option is valid run selected query
+					if (validOption(option, secondaryOption) && secondaryOption != 0) {
+						
+						//System.out.println("Selection #1 - " + option); //<=TEST POINT
+						//System.out.println("Selection #2 - " + secondaryOption); //<=TEST POINT
 
+						if ((option == 1 && secondaryOption == 4) || // Search member of staff by name
+								(option == 2 && secondaryOption == 3) || // Search for pet by name
+								(option == 3) && (secondaryOption == 2 || secondaryOption == 3)) {
+							// OPTIONS: List queue order by individual medical staff member
+							// & Move to next pet in queue for individual medical staff member
+							
+							if (option == 1 && secondaryOption == 4) {
+								System.out.println("[ENTER STAFF MEMBER'S FIRST NAME BELOW]");
+							}
+							
+							if (option == 2 && secondaryOption == 3) {
+								System.out.println("[ENTER PET NAME BELOW]");
+							}
+							
+							if ((option == 3) && (secondaryOption == 2 || secondaryOption == 3)) {
+								System.out.println("[ENTER MEDICAL STAFF MEMBER NAME BELOW]");
+								System.out.println("Note: we'll look up  for a match with either name or surname");
+							}
+							
+							System.out.println("☟--Search Box--☟");
+							searchBox = readingUser2();
+							
+							//System.out.println(searchBox); //<=TEST POINT
+						}
+						
+						queryBuilder(option, secondaryOption, searchBox);
+												
+
+					} else {
+						System.out.println("The option that you have selected does not exist");
+					}					
+				} 
 				
-//			}	
+			} while (!validOption(option, secondaryOption) && option != 0);
+
 		} while (option != 0); // EXIT app when input is 0
 		
 		// If option is 0 exit
@@ -147,40 +168,6 @@ public class Menu {
 		
 	}
 	
-	
-//	public boolean validOptionMain(int option) {
-//		return option >= 0 && option <= menuMainOptions.length;
-//	}	
-	
-	
-	public boolean validOption(int option, int secondaryOption) {
-		if (option == 1) { // STAFF Queries
-			// Need to allow free text on 'searching' queries
-			if (secondaryOption == 4) { // Search member of staff by name
-				return true;
-			} else {
-				return option >= 0 && option <= menuSecondaryOptionsStaff.length;
-			}
-		} 
-		if (option == 2) { // PETS Queries
-			// Need to allow free text on 'searching' queries
-			if (secondaryOption == 2) { // Search for pet by name
-				return true;
-			} else {			
-			return option >= 0 && option <= menuSecondaryOptionsPets.length;
-			}
-		} 
-		if (option == 3) { // QUEUE MANAGEMENT Queries
-			// Need to allow free text on 'searching' queries
-			if (secondaryOption == 2 || secondaryOption == 3) { // OPTIONS: List queue order by individual medical staff member
-				// & Move to next pet in queue for individual medical staff member
-				return true;
-			} else {				
-				return option >= 0 && option <= menuSecondaryOptionsQ.length;
-			}
-		} 		
-		return option >= 0 && option <= menuMainOptions.length;
-	}	
 	
 	public int readingUser() {
 		// REF. https://stackoverflow.com/questions/5287538/how-to-get-the-user-input-in-java
@@ -193,13 +180,53 @@ public class Menu {
 			option = Integer.parseInt(optionString); 
 			 
 		} catch (IOException | NumberFormatException e) {
-			System.out.println("That's not a valid option, please select an option from the menu:");
+			System.out.println("That's not a valid option, please select a valid option from the menu.");
 		}
 		
 		return option;
 	}
 	
+
+	public String readingUser2() {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String optionString = null;
+		
+		try {
+			optionString = br.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return optionString;
+	}	
+	
+	
+	public boolean validOption(Integer option, Integer secondaryOption) {
+		
+		// Need to use 'Integer' instead of 'int' to check if null
+		// REF. https://stackoverflow.com/questions/13747859/how-to-check-if-an-int-is-a-null
+		if (secondaryOption != null) {
+			
+			if (option == 1) { // STAFF Queries
+				return secondaryOption >= 0 && secondaryOption <= menuSecondaryOptionsStaff.length;
+			} 
+			if (option == 2) { // PETS Queries
+				return secondaryOption >= 0 && secondaryOption <= menuSecondaryOptionsPets.length;
+			} 
+			if (option == 3) { // QUEUE MANAGEMENT Queries
+				return secondaryOption >= 0 && secondaryOption <= menuSecondaryOptionsQ.length;
+			} 	
+			
+		} else {
+			return option >= 0 && option <= menuMainOptions.length;
+		}
+		return false;
+	}	
+
+	
 	public void mainMenuOptions() {
+		System.out.println("\r\n***MAIN MENU***\r\n");
 		System.out.println("Choose from one of these options:\r\n");
 		for(int i = 0; i < menuMainOptions.length; i++) {
 			System.out.println("Press " + (i+1) + " for " + menuMainOptions[i]);
@@ -232,14 +259,15 @@ public class Menu {
 						}
 						System.out.println("Press 0 for MAIN MENU");	        
 	                 break;
-	        default: break;
+	        default: System.out.println("No such options. Please try again.\r\n"); 
+	        		 break;
         }		
 	}	
 	
 	
-	public void queryBuilder(int option, int secondaryOption) {
+	public void queryBuilder(Integer option, Integer secondaryOption, String searchBox) {
 		
-		if(secondaryOption != 0) { // TODO Refine this condition
+		if(validOption(option, secondaryOption) && option != 0 && secondaryOption != 0) { // TODO Refine this condition
 			
 			// STAFF Queries
 			if(option == 1) { 
@@ -351,7 +379,21 @@ public class Menu {
 						System.out.println("\r\n*DONE!*\r\n");
 						//System.out.println(adminTasks.toString());
 						break;	
+						
 					case 4: // Search member of staff by name
+						ArrayList<String> nameMatch = new ArrayList<String>();
+						for (Staff st : staff) {
+							if (st.getFirstName().contains(searchBox)) {
+								nameMatch.add("Staff ID: " + st.getEmployeeId() + ": " + st.getFirstName() + " " + st.getSecondName());
+							}
+						}
+						if (nameMatch.size() == 0) {
+							System.out.println("No employee of the clinic is called: "+searchBox+"!");
+						} else {
+							System.out.println(nameMatch.size()+" result"+((nameMatch.size() == 1) ? "": "s")+"!");
+							System.out.println(nameMatch.toString());
+						}
+						System.out.println("\r\n*DONE!*\r\n");
 						break;								
 					default: break;
 				}
@@ -411,6 +453,19 @@ public class Menu {
 						break;						
 						
 					case 3: // Search for pet by name
+						ArrayList<String> nameMatch = new ArrayList<String>();
+						for (Animal anm : animals) {
+							if (anm.getPetName().contains(searchBox)) {
+								nameMatch.add(anm.getPetName() + " (" + anm.getAnimalType() + ", " + anm.getAge() + " y/o.)");
+							}
+						}
+						if (nameMatch.size() == 0) {
+							System.out.println("No registered pet called: "+searchBox+"!");
+						} else {
+							System.out.println(nameMatch.size()+" result"+((nameMatch.size() == 1) ? "": "s")+"!");
+							System.out.println(nameMatch.toString());
+						}
+						System.out.println("\r\n*DONE!*\r\n");						
 						break;								
 					default: break;
 				}
@@ -448,10 +503,7 @@ public class Menu {
 						for(StaffMedical stMed: medicalStaff){
 							
 							Deque<Animal> animalQ = stMed.getAnimalQ();
-							int animalCountInQ = 0;
-							for(Animal anm: animalQ) {
-								animalCountInQ += 1;								
-							}
+							int animalCountInQ = animalQ.size();
 							
 							String staffDetails = ("Staff ID " + stMed.getEmployeeId() + ": "
 									+ ((stMed.getTitle() != null) ? stMed.getTitle() : "") + stMed.getFirstName() + " "
