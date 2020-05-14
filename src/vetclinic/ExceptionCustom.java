@@ -6,6 +6,8 @@ public class ExceptionCustom extends Exception {
 	 * REF. https://beginnersbook.com/2013/04/throw-in-java/ We want to throw an
 	 * internal error if an incorrect value is provided for FactoryStaff()
 	 * parameters in Menu.java (currently at line 73, as of 14/05/2020)
+	 * @param medCount => total count of medical staff members
+	 * @param vetCount => total count of vet doctors
 	 */
 	private static final long serialVersionUID = 1L; // Suggested by Eclipse
 
