@@ -139,10 +139,15 @@ public class Menu {
 								System.out.println("[ENTER PET NAME BELOW]");
 							}
 							
-							if ((option == 3) && (secondaryOption == 2 || secondaryOption == 3)) {
+							if (option == 3 && secondaryOption == 2) {
 								System.out.println("[ENTER MEDICAL STAFF MEMBER NAME BELOW]");
 								System.out.println("Note: we'll look up  for a match with either name or surname");
 							}
+							
+							if (option == 3 && secondaryOption == 3) {
+								System.out.println("[ENTER UNIQUE EMPLOYEE ID]");
+								System.out.println("Note: this query only checks for exact matches");
+							}							
 							
 							System.out.println("☟--Search Box--☟");
 							searchBox = readingUser2();
@@ -495,10 +500,88 @@ public class Menu {
 						}
 						System.out.println("\r\n*DONE!*\r\n");
 						break;
+						
 					case 2: // List queue order by individual medical staff member
+						ArrayList<StaffMedical> nameMatchMed = new ArrayList<StaffMedical>();
+						for (StaffMedical medSt : medicalStaff) {
+							if (medSt.getFirstName().contains(searchBox) || medSt.getSecondName().contains(searchBox)) {
+								nameMatchMed.add(medSt);
+							}
+						}
+						if (nameMatchMed.size() == 0) {
+							System.out.println("No employee of the clinic is called: "+searchBox+"!");
+						} else {
+							for (StaffMedical stMed : nameMatchMed) {
+								Deque<Animal> animalQ = stMed.getAnimalQ();
+								
+								String staffDetails = ("Staff ID " + stMed.getEmployeeId() + ": "
+										+ ((stMed.getTitle() != null) ? stMed.getTitle() : "") + stMed.getFirstName() + " "
+										+ stMed.getSecondName() + "\r\n");
+								String staffSpecialty = (stMed.getRole() + " specialized in: " + (stMed.isSmallAnimalsOnly() ? "small only" : "small or big")
+										+ " and " + (stMed.isTrainedForExoticPets() ? "exotic or native" : "native only")
+										+ " animals\r\n");							
+								System.out.println(staffDetails + staffSpecialty + "\r\n" + stMed.getFirstName() +
+										"'s QUEUE:\r\n");
+								int iQ = 1;
+								for(Animal anm: animalQ) {
+									System.out.println("QUEUE POSITION # " + iQ + " =>");
+									System.out.println("Pet name: "+ anm.getPetName() + " (" +
+											anm.getAnimalType() + "), " + anm.getAge() + " y.o. Condition: " + anm.getMedicalCondition());
+									iQ++;
+								}							
+								System.out.println("\r\n------\r\n");
+							}
+						}
+						System.out.println("\r\n*DONE!*\r\n");						
 						break;
+						
 					case 3: // Move to next pet in queue for individual medical staff member
+						ArrayList<StaffMedical> nameMatchMed2 = new ArrayList<StaffMedical>();
+						for (StaffMedical medSt : medicalStaff) {
+							if (medSt.getEmployeeId().contentEquals(searchBox)) {
+								nameMatchMed2.add(medSt);
+							}
+						}
+						if (nameMatchMed2.size() == 0) {
+							System.out.println("We have no medical staff with Staff ID: "+searchBox+"!");
+						} else {
+							for (StaffMedical stMed : nameMatchMed2) {
+								Deque<Animal> animalQ = stMed.getAnimalQ();
+								
+								// CURRENT QUEUE
+								String staffDetails = ("Staff ID " + stMed.getEmployeeId() + ": "
+										+ ((stMed.getTitle() != null) ? stMed.getTitle() : "") + stMed.getFirstName() + " "
+										+ stMed.getSecondName() + "\r\n");								
+								System.out.println(staffDetails + "\r\n" + stMed.getFirstName() +
+										"'s OLD QUEUE:\r\n");	
+								int iQ = 1;
+								for(Animal anm: animalQ) {
+									System.out.println("QUEUE POSITION # " + iQ + " =>");
+									System.out.println("Pet name: "+ anm.getPetName() + " (" +
+											anm.getAnimalType() + "), " + anm.getAge() + " y.o. Condition: " + anm.getMedicalCondition());
+									iQ++;
+								}		
+								System.out.println("\r\n------\r\n");
+								
+								// UPDATED QUEUE
+								
+								animalQ.removeFirst();
+								
+								System.out.println(stMed.getFirstName() +
+										"'s UPDATED QUEUE:\r\n");	
+								int iQ2 = 1;
+								for(Animal anm: animalQ) {
+									System.out.println("QUEUE POSITION # " + iQ2 + " =>");
+									System.out.println("Pet name: "+ anm.getPetName() + " (" +
+											anm.getAnimalType() + "), " + anm.getAge() + " y.o. Condition: " + anm.getMedicalCondition());
+									iQ2++;
+								}	
+							}
+							System.out.println("\r\n------\r\n");
+						}
+						System.out.println("\r\n*DONE!*\r\n");							
 						break;	
+						
 					case 4: // BONUS! Show count of pets in queue for all medical staff
 						for(StaffMedical stMed: medicalStaff){
 							
