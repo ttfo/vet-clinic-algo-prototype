@@ -162,7 +162,7 @@ public class Menu {
 						queryBuilder(option, secondaryOption, searchBox);
 												
 
-					} else {
+					} else if (secondaryOption != 0) {
 						System.out.println("[WARNING] The option that you have selected does not exist.");
 					}					
 				}
