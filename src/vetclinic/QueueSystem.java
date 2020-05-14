@@ -48,12 +48,10 @@ public class QueueSystem {
 			// If exotic animal, pet needs to go into 'exotic' list for assignment
 			if (an.getAnimalOrigin() == "exotic") {
 				animalExotic.add(an);
-			}
-			// If non-exotic animal, check size
-			if ((an.getAnimalOrigin() != "exotic")&&(an.getAnimalSize() == "big")) {
+				// If non-exotic animal, check size
+			} else if ((an.getAnimalOrigin() != "exotic")&&(an.getAnimalSize() == "big")) {
 				animalBig.add(an);
-			}
-			if ((an.getAnimalOrigin() != "exotic")&&(an.getAnimalSize() != "big")) {
+			} else if ((an.getAnimalOrigin() != "exotic")&&(an.getAnimalSize() != "big")) {
 				animalNotBigNotExotic.add(an);
 			}
 		}

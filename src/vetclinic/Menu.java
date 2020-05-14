@@ -60,14 +60,18 @@ public class Menu {
 			"	  *   WELCOME TO THE VET CLINIC   *   \r\n"+
 			"	  ***    Management Console     ***   \r\n\r\n");
 	
-	
+	int adminStaffCount = 10; // 10 is the min requirement as per CA specs
+	int medicalStaffCount = 30; // 30 is the min requirement as per CA specs
+	int vetStaffCount = 5; // 5 is min requirement as per CA specs
+	int animalTotalCount = 1000; // 1000 is min requirement as per CA specs
 	
 	/*
 	 * Creates array list of 'staff' objects with variable numbers of admin/ medical and vet staff members.
 	 * Values passed as params (10, 30, 5) represent the min requirement as for the specs in CA,
 	 * however bigger values are also supported, e.g. (40, 60, 10)
 	 */
-	FactoryStaff factoryStaff = new FactoryStaff(10, 30, 5);
+	FactoryStaff factoryStaff = new FactoryStaff(adminStaffCount, medicalStaffCount, vetStaffCount);
+	
 	// Returning array list with staff members
 	ArrayList<Staff> staff = factoryStaff.getStaff();
 	LinkedList<StaffMedical> medicalStaff = factoryStaff.getMedicalStaff();
@@ -79,7 +83,7 @@ public class Menu {
 	 * Creates 'animal' objects with a param that allows to determine overall number of animals
 	 * 1000 animals is the min requirement as per CA specs
 	 */		
-	FactoryAnimal factoryAnimal = new FactoryAnimal(90);
+	FactoryAnimal factoryAnimal = new FactoryAnimal(animalTotalCount);
 	LinkedList<Animal> animals = factoryAnimal.getAnimals();
 	//System.out.println(factoryAnimal.toString()); //<= TEST POINT
 	
@@ -97,9 +101,9 @@ public class Menu {
 	
 	public Menu() throws IOException, InstantiationException, IllegalAccessException {
 		
-		// Following structure derived from 'Pizza' example done in Algo class (May 2020)
+		// Following structure is derived from 'Pizza' example done in Algo class (May 2020)
 		
-		Integer option;
+		Integer option = null;
 		Integer secondaryOption;
 		String searchBox;
 		
@@ -159,9 +163,12 @@ public class Menu {
 												
 
 					} else {
-						System.out.println("The option that you have selected does not exist");
+						System.out.println("[WARNING] The option that you have selected does not exist.");
 					}					
-				} 
+				}
+				if (option > menuMainOptions.length) {
+					System.out.println("[WARNING] The option that you have selected does not exist. Try again.");
+				}
 				
 			} while (!validOption(option, secondaryOption) && option != 0);
 
@@ -185,7 +192,7 @@ public class Menu {
 			option = Integer.parseInt(optionString); 
 			 
 		} catch (IOException | NumberFormatException e) {
-			System.out.println("That's not a valid option, please select a valid option from the menu.");
+			System.out.println("[WARNING] Not a numeric value.");
 		}
 		
 		return option;
@@ -264,7 +271,7 @@ public class Menu {
 						}
 						System.out.println("Press 0 for MAIN MENU");	        
 	                 break;
-	        default: System.out.println("No such options. Please try again.\r\n"); 
+	        default: System.out.println("[WARNING] No such options. Please try again.\r\n"); 
 	        		 break;
         }		
 	}	

@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Random;
 
+import vetclinic.Throwable;
 import vetclinicabstract.Staff;
 import vetclinicabstract.StaffAdmin;
 import vetclinicabstract.StaffMedical;
@@ -55,12 +56,16 @@ public class FactoryStaff {
 	}
 	
 	public FactoryStaff(int adminStaffCount, int medicalStaffCount, int vetStaffCount) throws IOException {
+		Throwable throwable = new Throwable();
+		throwable.checkEligibilty(medicalStaffCount, vetStaffCount);
 		
 		if (vetStaffCount > medicalStaffCount) {
-			// TODO throw an exception; vet is a sub-group of medical staff and we cannot have more vets than medical staff
+			//vet is a sub-group of medical staff and we cannot have more vets than medical staff
+			System.out.println("[INTERNAL WARNING] vetStaffCount is a sub-group of medicalStaffCount. vetStaffCount cannot be bigger than medicalStaffCount.");
 			return;
 		} else if (vetStaffCount < 5) { 
-			// TODO throw an exception; clinic MUST have at least 5 vets
+			System.out.println("[INTERNAL WARNING] We need at least 5 Vets.");
+			throwable.checkMinVet(vetStaffCount);
 			return;		
 		} else {
 			
@@ -239,10 +244,20 @@ public class FactoryStaff {
 			if (staffMember instanceof StaffMedical) { 
 			// condition can also be written as	
 			// if (staffMember.getStaffType() == 'M')
+				
+				// first assignment
+				// we need to make sure that we have at least a vet able to take care of all animals
 				((StaffMedical) staffMember).isSmallAnimalsOnly = handlesSmallAnimalsOnly;
-				((StaffMedical) staffMember).isTrainedForExoticPets = !handlesNotExoticPetsOnly;				
+				((StaffMedical) staffMember).isTrainedForExoticPets = !handlesNotExoticPetsOnly;	
+				
 				handlesSmallAnimalsOnly = r.nextBoolean();
 				handlesNotExoticPetsOnly = r.nextBoolean();
+				
+				// who handles exotic pets should also handle big animals
+				// (most exotic animals would be of large size)
+				if (((StaffMedical) staffMember).isTrainedForExoticPets) {
+					((StaffMedical) staffMember).isSmallAnimalsOnly = false; 
+				}
 			}
 			
 			// System.out.println((i+1) + ")\n" + staffMember.toString()); //<= TEST POINT
